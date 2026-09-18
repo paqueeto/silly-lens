@@ -1,0 +1,141 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@theme {
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", ui-serif, Georgia, "Times New Roman", serif;
+
+  --color-bg: #f3eee4;
+  --color-bg-warm: #e7dccb;
+  --color-surface: #fffaf3;
+  --color-surface-2: #efe6d7;
+  --color-ink: #1a1714;
+  --color-ink-soft: #5c564e;
+  --color-ink-faint: #8a8378;
+  --color-line: #d9d0c2;
+  --color-line-strong: #c4b9a8;
+  --color-primary: #c44536;
+  --color-primary-fg: #fffaf3;
+  --color-primary-deep: #9e3428;
+  --color-moss: #3d5340;
+  --color-moss-fg: #f3eee4;
+  --color-live: #2f7d4a;
+  --color-warn: #b5761a;
+  --color-danger: #b42318;
+
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+  --radius-3xl: 2.5rem;
+
+  --shadow-booth:
+    0 0 0 1px rgb(26 23 20 / 0.06),
+    0 1px 2px -1px rgb(26 23 20 / 0.06),
+    0 18px 40px -24px rgb(26 23 20 / 0.28);
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html,
+  body,
+  #app {
+    height: 100%;
+    min-height: 100dvh;
+    max-height: 100dvh;
+    overflow: hidden;
+    background: var(--color-bg);
+    color: var(--color-ink);
+    touch-action: manipulation;
+  }
+
+  body {
+    font-family: var(--font-sans);
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@keyframes booth-flash {
+  from {
+    opacity: 0.92;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes count-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  35% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes live-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(0.82);
+  }
+}
+
+@keyframes chip-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-ok {
+    animation: none !important;
+    transition: none !important;
+  }
+}

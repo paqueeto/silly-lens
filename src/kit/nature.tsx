@@ -217,18 +217,26 @@ export const WaveBand: React.FC<WaveProps> = ({ y, color, amp = 18, length = 260
   );
 };
 
-/** Rolling hills along a horizon. */
-export const Hills: React.FC<{ y: number; color: string; height?: number; seed?: number; stitch?: boolean }> = ({
-  y,
-  color,
-  height = 80,
-  seed = 1,
-  stitch = true,
-}) => {
+/** The top edge of `<Hills>` as a function of x, for standing characters on it. */
+export function hillCurve(y: number, height = 80, seed = 1) {
   const r = rng(seed);
   const a = [r() * 6, r() * 6, r() * 6];
-  const f = (x: number) =>
+  return (x: number) =>
     y - height * (0.55 * Math.sin(x / 310 + a[0]) + 0.3 * Math.sin(x / 170 + a[1]) + 0.15 * Math.sin(x / 90 + a[2]));
+}
+
+/** Rolling hills along a horizon. */
+export const Hills: React.FC<{
+  y: number;
+  color: string;
+  height?: number;
+  seed?: number;
+  stitch?: boolean;
+  stitchColor?: string;
+  /** Lighter felt grain, for snow and pale colours. */
+  soft?: boolean;
+}> = ({ y, color, height = 80, seed = 1, stitch = true, stitchColor, soft }) => {
+  const f = hillCurve(y, height, seed);
   const pts: [number, number][] = [];
   const inner: [number, number][] = [];
   for (let x = -100; x <= W + 100; x += 40) {
@@ -236,9 +244,9 @@ export const Hills: React.FC<{ y: number; color: string; height?: number; seed?:
     inner.push([x, f(x) + 14]);
   }
   return (
-    <Felt>
+    <Felt soft={soft}>
       <path d={`${smoothPath(pts)} L ${W + 100} ${H + 100} L -100 ${H + 100} Z`} fill={color} />
-      {stitch ? <Stitch d={smoothPath(inner)} color={lighter(color, 0.35)} /> : null}
+      {stitch ? <Stitch d={smoothPath(inner)} color={stitchColor ?? lighter(color, 0.35)} /> : null}
     </Felt>
   );
 };
@@ -257,7 +265,13 @@ export const RoundTree: React.FC<{ x: number; y: number; size?: number; color?: 
   </Felt>
 );
 
-export const PineTree: React.FC<{ x: number; y: number; size?: number; color?: string }> = ({ x, y, size = 160, color = "#2f5d4a" }) => {
+export const PineTree: React.FC<{ x: number; y: number; size?: number; color?: string; snow?: boolean }> = ({
+  x,
+  y,
+  size = 160,
+  color = "#2f5d4a",
+  snow = false,
+}) => {
   const tiers = [0, 1, 2];
   return (
     <Felt>
@@ -270,6 +284,12 @@ export const PineTree: React.FC<{ x: number; y: number; size?: number; color?: s
         return (
           <g key={i}>
             <path d={d} fill={i % 2 ? lighter(color, 0.06) : color} />
+            {snow ? (
+              <path
+                d={`M ${x} ${top} Q ${x + w * 0.15} ${top + 8} ${x + w * 0.45} ${top + (bottom - top) * 0.45} Q ${x + w * 0.2} ${top + (bottom - top) * 0.38} ${x} ${top + (bottom - top) * 0.5} Q ${x - w * 0.2} ${top + (bottom - top) * 0.38} ${x - w * 0.45} ${top + (bottom - top) * 0.45} Q ${x - w * 0.15} ${top + 8} ${x} ${top} Z`}
+                fill="#f6f9ff"
+              />
+            ) : null}
             <Stitch d={`M ${x - w * 0.75} ${bottom - 6} Q ${x} ${bottom + 6} ${x + w * 0.75} ${bottom - 6}`} color={lighter(color, 0.4)} />
           </g>
         );
@@ -479,3 +499,242 @@ export function branchTopY(from: [number, number], to: [number, number], x: numb
   const my = (from[1] + to[1]) / 2 + sag;
   return (1 - t) * (1 - t) * from[1] + 2 * (1 - t) * t * my + t * t * to[1];
 }
+
+/** Smiling sun with slowly turning felt rays. */
+export const Sun: React.FC<{ x: number; y: number; r?: number; face?: boolean }> = ({ x, y, r = 90, face = true }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const turn = (frame / fps) * 6;
+  const id = useId("sun");
+  return (
+    <g>
+      <defs>
+        <radialGradient id={id}>
+          <stop offset="0.3" stopColor="#fff2b0" stopOpacity={0.7} />
+          <stop offset="1" stopColor="#fff2b0" stopOpacity={0} />
+        </radialGradient>
+      </defs>
+      <circle cx={x} cy={y} r={r * 3} fill={`url(#${id})`} />
+      <Felt>
+        <g transform={`rotate(${turn} ${x} ${y})`}>
+          {Array.from({ length: 12 }, (_, i) => {
+            const a = (i / 12) * Math.PI * 2;
+            const r1 = r * 1.15;
+            const r2 = r * (i % 2 ? 1.5 : 1.7);
+            const w = 0.13;
+            return (
+              <path
+                key={i}
+                d={`M ${x + Math.cos(a - w) * r1} ${y + Math.sin(a - w) * r1} L ${x + Math.cos(a) * r2} ${y + Math.sin(a) * r2} L ${x + Math.cos(a + w) * r1} ${y + Math.sin(a + w) * r1} Z`}
+                fill="#ffb84d"
+              />
+            );
+          })}
+        </g>
+        <FeltEllipse cx={x} cy={y} rx={r} fill="#ffd34d" inset={12} />
+        {face ? (
+          <g>
+            <circle cx={x - r * 0.3} cy={y - r * 0.08} r={r * 0.08} fill="#5a3a1a" />
+            <circle cx={x + r * 0.3} cy={y - r * 0.08} r={r * 0.08} fill="#5a3a1a" />
+            <path d={`M ${x - r * 0.28} ${y + r * 0.2} Q ${x} ${y + r * 0.45} ${x + r * 0.28} ${y + r * 0.2}`} stroke="#5a3a1a" strokeWidth={r * 0.07} fill="none" strokeLinecap="round" />
+            <ellipse cx={x - r * 0.52} cy={y + r * 0.15} rx={r * 0.12} ry={r * 0.07} fill="#f58f6b" opacity={0.6} />
+            <ellipse cx={x + r * 0.52} cy={y + r * 0.15} rx={r * 0.12} ry={r * 0.07} fill="#f58f6b" opacity={0.6} />
+          </g>
+        ) : null}
+      </Felt>
+    </g>
+  );
+};
+
+const PETALS = ["#f6a6b2", "#ffd65c", "#b7c4ff", "#ffffff", "#ffb979", "#d7a6f2"];
+
+/** One felt flower. (x, y) is where the stem meets the ground. `grow` 0→1 pops it up. */
+export const Flower: React.FC<{ x: number; y: number; size?: number; color?: string; grow?: number; seed?: number }> = ({
+  x,
+  y,
+  size = 30,
+  color = PETALS[0],
+  grow = 1,
+  seed = 1,
+}) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  if (grow <= 0) return null;
+  const sway = 4 * wobble(frame, fps, 2.8 + (seed % 4) * 0.3, seed);
+  const stem = size * 2.6 * grow;
+  const hx = x;
+  const hy = y - stem;
+  return (
+    <g transform={`rotate(${sway} ${x} ${y})`}>
+      <path d={`M ${x} ${y} Q ${x - 6} ${y - stem / 2} ${hx} ${hy}`} stroke="#3f8a4f" strokeWidth={size * 0.18} fill="none" strokeLinecap="round" />
+      <g transform={`translate(${hx} ${hy}) scale(${grow}) translate(${-hx} ${-hy})`}>
+        <Felt>
+          {Array.from({ length: 5 }, (_, i) => {
+            const a = (i / 5) * Math.PI * 2 - Math.PI / 2;
+            return <circle key={i} cx={hx + Math.cos(a) * size * 0.62} cy={hy + Math.sin(a) * size * 0.62} r={size * 0.5} fill={color} />;
+          })}
+          <circle cx={hx} cy={hy} r={size * 0.38} fill="#ffcf3d" />
+          <Stitch d={ellipsePath(hx, hy, size * 0.25, size * 0.25)} color="#fff3b0" width={1.6} />
+        </Felt>
+      </g>
+    </g>
+  );
+};
+
+/** A scattered row of flowers along the ground line `groundAt`. */
+export const FlowerPatch: React.FC<{ groundAt: (x: number) => number; count?: number; seed?: number; from?: number; to?: number; size?: number }> = ({
+  groundAt,
+  count = 14,
+  seed = 3,
+  from = 0,
+  to = W,
+  size = 24,
+}) => {
+  const r = rng(seed);
+  return (
+    <g>
+      {Array.from({ length: count }, (_, i) => {
+        const x = from + ((i + r() * 0.8) / count) * (to - from);
+        return <Flower key={i} x={x} y={groundAt(x) + 10 + r() * 30} size={size * (0.75 + r() * 0.5)} color={PETALS[Math.floor(r() * PETALS.length)]} seed={i + seed} />;
+      })}
+    </g>
+  );
+};
+
+/** Gently falling snow that loops forever. */
+export const Snowfall: React.FC<{ count?: number; seed?: number; speed?: number }> = ({ count = 70, seed = 5, speed = 60 }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const r = rng(seed);
+  const t = frame / fps;
+  return (
+    <g>
+      {Array.from({ length: count }, (_, i) => {
+        const x0 = r() * W;
+        const y0 = r() * (H + 60);
+        const size = 3 + r() * 7;
+        const v = speed * (0.6 + size / 10);
+        const y = ((y0 + v * t) % (H + 60)) - 30;
+        const x = x0 + 30 * Math.sin(t * (0.6 + r() * 0.6) + i);
+        return <circle key={i} cx={x} cy={y} r={size} fill="#ffffff" opacity={0.55 + size / 25} />;
+      })}
+    </g>
+  );
+};
+
+/** Butterflies fluttering in loops over an area. */
+export const Butterflies: React.FC<{ count?: number; seed?: number; area?: [number, number, number, number] }> = ({
+  count = 4,
+  seed = 2,
+  area = [200, 300, W - 400, 400],
+}) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const r = rng(seed);
+  const t = frame / fps;
+  const [x0, y0, w, h] = area;
+  return (
+    <g>
+      {Array.from({ length: count }, (_, i) => {
+        const cx = x0 + r() * w;
+        const cy = y0 + r() * h;
+        const p = r() * 6;
+        const x = cx + 120 * Math.sin(t * 0.5 + p);
+        const y = cy + 50 * Math.sin(t * 0.9 + p * 2);
+        const flap = 0.35 + 0.65 * Math.abs(Math.sin(t * 9 + p));
+        const color = PETALS[(i + 1) % PETALS.length];
+        return (
+          <g key={i} transform={`translate(${x} ${y}) rotate(${10 * Math.sin(t + p)})`}>
+            <g transform={`scale(${flap} 1)`}>
+              <ellipse cx={-14} cy={-6} rx={14} ry={11} fill={color} />
+              <ellipse cx={14} cy={-6} rx={14} ry={11} fill={color} />
+              <ellipse cx={-10} cy={9} rx={9} ry={8} fill={darker(color, 0.1)} />
+              <ellipse cx={10} cy={9} rx={9} ry={8} fill={darker(color, 0.1)} />
+            </g>
+            <rect x={-2.5} y={-14} width={5} height={28} rx={2.5} fill="#4a3a4a" />
+          </g>
+        );
+      })}
+    </g>
+  );
+};
+
+export type ThingKind = "star" | "flower" | "snowflake" | "apple" | "shell";
+
+/** A countable felt object for counting stories and treasures. `pop` 0→1 springs it in. */
+export const Thing: React.FC<{ kind: ThingKind; x: number; y: number; size?: number; pop?: number; glow?: boolean }> = ({
+  kind,
+  x,
+  y,
+  size = 60,
+  pop = 1,
+  glow = false,
+}) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  if (pop <= 0) return null;
+  const bob = 6 * wobble(frame, fps, 2.4, x / 100);
+  const s = size;
+  let body: React.ReactNode = null;
+  if (kind === "star") {
+    body = (
+      <>
+        <path d={starPath(x, y, s)} fill="#ffd65c" stroke="#ffd65c" strokeWidth={8} strokeLinejoin="round" />
+        <Stitch d={starPath(x, y, s * 0.68)} color="#fff1b0" width={2} />
+      </>
+    );
+  } else if (kind === "flower") {
+    body = (
+      <>
+        {Array.from({ length: 6 }, (_, i) => {
+          const a = (i / 6) * Math.PI * 2;
+          return <circle key={i} cx={x + Math.cos(a) * s * 0.55} cy={y + Math.sin(a) * s * 0.55} r={s * 0.42} fill="#f6a6b2" />;
+        })}
+        <FeltEllipse cx={x} cy={y} rx={s * 0.38} fill="#ffcf3d" inset={6} />
+      </>
+    );
+  } else if (kind === "snowflake") {
+    body = (
+      <g stroke="#ffffff" strokeWidth={s * 0.14} strokeLinecap="round" fill="none">
+        {Array.from({ length: 6 }, (_, i) => {
+          const a = (i / 6) * Math.PI * 2;
+          const ex = x + Math.cos(a) * s;
+          const ey = y + Math.sin(a) * s;
+          const mx = x + Math.cos(a) * s * 0.55;
+          const my = y + Math.sin(a) * s * 0.55;
+          const b = 0.6;
+          return (
+            <g key={i}>
+              <path d={`M ${x} ${y} L ${ex} ${ey}`} />
+              <path d={`M ${mx} ${my} L ${mx + Math.cos(a + b) * s * 0.3} ${my + Math.sin(a + b) * s * 0.3} M ${mx} ${my} L ${mx + Math.cos(a - b) * s * 0.3} ${my + Math.sin(a - b) * s * 0.3}`} />
+            </g>
+          );
+        })}
+      </g>
+    );
+  } else if (kind === "apple") {
+    body = (
+      <>
+        <path d={`M ${x} ${y - s * 0.7} q ${s * 0.05} ${-s * 0.3} ${s * 0.18} ${-s * 0.42}`} stroke="#5a3d26" strokeWidth={s * 0.1} strokeLinecap="round" fill="none" />
+        <path d={`M ${x + s * 0.08} ${y - s * 0.8} q ${s * 0.4} ${-s * 0.25} ${s * 0.55} ${s * 0.02} q ${-s * 0.35} ${s * 0.18} ${-s * 0.55} ${-s * 0.02} Z`} fill="#4f9a55" />
+        <path d={`M ${x} ${y - s * 0.62} C ${x - s * 0.5} ${y - s * 0.95} ${x - s * 1.05} ${y - s * 0.2} ${x - s * 0.55} ${y + s * 0.55} C ${x - s * 0.3} ${y + s * 0.9} ${x} ${y + s * 0.75} ${x} ${y + s * 0.75} C ${x} ${y + s * 0.75} ${x + s * 0.3} ${y + s * 0.9} ${x + s * 0.55} ${y + s * 0.55} C ${x + s * 1.05} ${y - s * 0.2} ${x + s * 0.5} ${y - s * 0.95} ${x} ${y - s * 0.62} Z`} fill="#e0503f" />
+        <Stitch d={`M ${x - s * 0.5} ${y - s * 0.1} Q ${x - s * 0.45} ${y + s * 0.5} ${x - s * 0.1} ${y + s * 0.6}`} color="#f39a8c" width={2.2} />
+      </>
+    );
+  } else if (kind === "shell") {
+    body = (
+      <>
+        <path d={`M ${x - s * 0.9} ${y + s * 0.5} Q ${x - s} ${y - s * 0.6} ${x} ${y - s * 0.75} Q ${x + s} ${y - s * 0.6} ${x + s * 0.9} ${y + s * 0.5} Q ${x} ${y + s * 0.8} ${x - s * 0.9} ${y + s * 0.5} Z`} fill="#f7c6b5" />
+        {[-0.5, -0.17, 0.17, 0.5].map((k, i) => (
+          <Stitch key={i} d={`M ${x + k * s * 0.4} ${y + s * 0.6} Q ${x + k * s * 1.2} ${y - s * 0.1} ${x + k * s * 0.3} ${y - s * 0.7}`} color="#fff1ea" width={2.2} />
+        ))}
+      </>
+    );
+  }
+  return (
+    <g transform={`translate(0 ${bob}) translate(${x} ${y}) scale(${pop}) translate(${-x} ${-y})`}>
+      {glow ? <circle cx={x} cy={y} r={s * 1.3} fill="#fff3b0" opacity={0.6} filter="url(#glow)" /> : null}
+      <Felt>{body}</Felt>
+    </g>
+  );
+};

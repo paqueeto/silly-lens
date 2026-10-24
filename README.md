@@ -20,6 +20,20 @@ The first render downloads a headless Chrome (Remotion does this by itself).
 Render time is CPU-bound: measured on 4 cores, a 1080p final takes about 11× the
 film's length (77 s → 14 min) and a 540p draft about 3×. More cores, faster renders.
 
+## Templates (fastest start)
+
+Three story templates in `templates/` (bedtime, counting, adventure), five worlds
+(night forest, night sea, starry sky, sunny meadow, snowy hill) and seven characters.
+One command makes a new cartoon that renders straight away:
+
+```bash
+npm run new -- pip-and-the-big-snow --template adventure --hero fox --name Pip \
+  --friend bunny --friend-name Lulu --world snowy-hill
+```
+
+Then rewrite the lines in `src/stories/pip-and-the-big-snow/story.json`. Ready
+prompts for Claude are in `PROMPTS.md`.
+
 ## Make a cartoon with Claude
 
 Open Claude Code in this folder and say, for example:
@@ -36,7 +50,8 @@ render.
 
 | Command | What it does |
 |---|---|
-| `npm run studio` | Live editor: scrub every story; composition `kit` shows all kit pieces |
+| `npm run new -- <id> --template …` | New story from a template (see above) |
+| `npm run studio` | Live editor: scrub every story; compositions `kit` and `worlds` show the building blocks |
 | `npm run still -- <id> --scenes` | One JPG per scene in `out/stills/<id>/` |
 | `npm run narrate -- <id>` | ElevenLabs narration + word timings (estimate without a key) |
 | `npm run music -- <id>` | Soundtrack + sound effects |
@@ -62,7 +77,8 @@ can review it before paying for a voice.
 ## Layout
 
 ```
-src/kit/          felt materials, nature props, characters, camera, overlays
+templates/        story templates: bedtime, counting, adventure
+src/kit/          felt materials, worlds, nature props, characters, moves, camera, overlays
 src/stories/<id>/ story.json (script) + scenes.tsx (scenes in code)
 src/Film.tsx      title → scenes → end card, word pops, wipes, audio mix
 src/timing.ts     narration timeline (shared by scripts and renderer)

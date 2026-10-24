@@ -4,4 +4,6 @@ export * from "./felt.tsx";
 export * from "./scene.tsx";
 export * from "./nature.tsx";
 export * from "./critters.tsx";
+export * from "./worlds.tsx";
+export * from "./moves.ts";
 export { FONT } from "./overlays.tsx";

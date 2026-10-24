@@ -2,6 +2,8 @@ import React from "react";
 import { Composition, staticFile } from "remotion";
 import { Film, type FilmProps } from "./Film.tsx";
 import { KitGallery } from "./KitGallery.tsx";
+import { WORLD_SECONDS, WorldGallery } from "./WorldGallery.tsx";
+import { WORLD_NAMES } from "./kit/worlds.tsx";
 import { STORIES } from "./stories/index.ts";
 import { estimateTiming, stripTags } from "./timing.ts";
 import type { StorySpec, Timing } from "./types.ts";
@@ -69,5 +71,13 @@ export const Root: React.FC = () => (
       />
     ))}
     <Composition id="kit" component={KitGallery} fps={FPS} width={1920} height={1080} durationInFrames={FPS * 8} />
+    <Composition
+      id="worlds"
+      component={WorldGallery}
+      fps={FPS}
+      width={1920}
+      height={1080}
+      durationInFrames={FPS * WORLD_SECONDS * WORLD_NAMES.length}
+    />
   </>
 );

@@ -1,0 +1,45 @@
+{
+  "id": "__ID__",
+  "title": "__TITLE__",
+  "mood": "__MOOD__",
+  "age": "2-4",
+  "music": { "seed": __SEED__ },
+  "scenes": [
+    {
+      "id": "hello",
+      "lines": ["This is __NAME__ the __KIND__, __PLACE__.", "__NAME__ loves to count. Let's count together!"],
+      "pop": ["__NAME__"]
+    },
+    {
+      "id": "one-two-three",
+      "lines": ["Look! One __THING__.", "Two __THINGS__.", "Three __THINGS__!"],
+      "pop": ["One", "Two", "Three"],
+      "sfx": [
+        { "sound": "pop", "on": "One", "volume": 0.45 },
+        { "sound": "pop", "on": "Two", "volume": 0.45 },
+        { "sound": "pop", "on": "Three", "volume": 0.45 }
+      ]
+    },
+    {
+      "id": "four-five",
+      "lines": ["Four __THINGS__...", "and five __THINGS__!"],
+      "pop": ["Four", "five"],
+      "sfx": [
+        { "sound": "pop", "on": "Four", "volume": 0.45 },
+        { "sound": "twinkle", "on": "five", "volume": 0.45 }
+      ]
+    },
+    {
+      "id": "all-together",
+      "lines": ["Let's count them all again!", "One, two, three, four, five...", "[excited] Hooray!"],
+      "pop": ["Hooray"],
+      "sfx": [{ "sound": "twinkle", "on": "Hooray", "volume": 0.5 }]
+    },
+    {
+      "id": "bye",
+      "lines": ["Thank you for counting with __NAME__.", "[warmly] See you next time!"],
+      "pop": ["next"],
+      "hold": 1
+    }
+  ]
+}

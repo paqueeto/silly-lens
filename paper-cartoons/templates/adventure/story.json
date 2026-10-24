@@ -1,0 +1,47 @@
+{
+  "id": "__ID__",
+  "title": "__TITLE__",
+  "mood": "__MOOD__",
+  "age": "3-5",
+  "music": { "seed": __SEED__ },
+  "scenes": [
+    {
+      "id": "ready",
+      "lines": ["__NAME__ the __KIND__ lived __PLACE__.", "And today was a day for an adventure!"],
+      "pop": ["adventure"]
+    },
+    {
+      "id": "off-we-go",
+      "lines": ["Off went __NAME__.", "Hop, hop, hop!"],
+      "pop": ["Hop", "hop", "hop"],
+      "sfx": [
+        { "sound": "pop", "on": "Hop", "volume": 0.35 },
+        { "sound": "pop", "on": "hop", "volume": 0.35 },
+        { "sound": "pop", "on": "hop", "volume": 0.35 }
+      ]
+    },
+    {
+      "id": "new-friend",
+      "lines": ["Along the way, __NAME__ met __FRIEND__ the __FRIEND_KIND__.", "Hello! said __FRIEND__. Can I come too?"],
+      "pop": ["__FRIEND__", "Hello"]
+    },
+    {
+      "id": "treasure",
+      "lines": ["Together, they found something shiny...", "[gasps] A treasure!"],
+      "pop": ["treasure"],
+      "sfx": [{ "sound": "twinkle", "on": "treasure", "volume": 0.5 }]
+    },
+    {
+      "id": "sharing",
+      "lines": ["They shared it. Half for you, and half for me.", "Sharing made it even better."],
+      "pop": ["shared"],
+      "sfx": [{ "sound": "whoosh", "on": "half", "volume": 0.25 }]
+    },
+    {
+      "id": "home-again",
+      "lines": ["[warmly] What a happy day for __NAME__ and __FRIEND__.", "See you on the next adventure!"],
+      "pop": ["happy"],
+      "hold": 1
+    }
+  ]
+}

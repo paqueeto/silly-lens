@@ -1,6 +1,6 @@
 ---
 name: cartoon
-description: Make felt-and-paper kids' cartoons in this project, from one idea to a finished MP4 — story, scene plan, scenes built in code with the felt kit, ElevenLabs narration synced to the words, music written in code, render, and hour-long compilations with YouTube chapters. Use when asked to make, change or extend a kids' cartoon, bedtime story video, or a compilation.
+description: Make felt-and-paper kids' cartoons in this project, from one idea to a finished MP4 — story templates (bedtime, counting, adventure) and world templates, scene plan, scenes built in code with the felt kit, ElevenLabs narration synced to the words, music written in code, render, and compilations. Use when asked to make, change or extend a kids' cartoon or bedtime story video, or to start one from a template.
 ---
 
 # Cartoon: idea → MP4
@@ -10,7 +10,14 @@ the music, ElevenLabs reads the story. No video generators, no credits beyond th
 narrator.
 
 Read `kit.md` (next to this file) before building scenes. Read `youtube.md` before
-anything goes on YouTube.
+anything goes on YouTube. `PROMPTS.md` in the project root has the user's ready
+prompts and the template table.
+
+**Prefer a template.** Most stories fit one of `templates/`: `bedtime` (worry → a
+friend helps → try → did it → goodnight), `counting` (1 to 5), `adventure` (set off →
+new friend → treasure → share → home). Starting from one gives working, verified
+scenes in any of the five worlds; then you rewrite the lines and adjust the scenes.
+Build from scratch only when the story's shape really doesn't fit.
 
 ## 0. Brief
 
@@ -44,23 +51,41 @@ scenes. Ten minutes is a series of ~8 such stories, not one long story (see §7)
 
 ## 2. Create the files
 
-1. `src/stories/<id>/story.json` — follow `StorySpec` in `src/types.ts`. Narration
-   lines may carry ElevenLabs v3 audio tags such as `[softly]`, `[whispers]`,
-   `[warmly]`, `[giggles]`; they are stripped for subtitles and timing.
-2. `src/stories/<id>/scenes.tsx` — one component per scene id, exported as
-   `export const scenes = { "scene-id": Component, … }`. Copy the structure of
-   `src/stories/olive-and-the-lantern-stars/scenes.tsx`.
-3. Register both in `src/stories/index.ts`.
+**From a template** (preferred):
 
-A scene with no component renders a placeholder card showing its lines, so you can
-build scene by scene.
+```bash
+npm run new -- <id> --template bedtime|counting|adventure --hero <kind> --name <Name> \
+  [--friend <kind> --friend-name <Name>] [--world <world>] [--thing <thing>] [--title "…"]
+```
+
+It copies `templates/<template>/` to `src/stories/<id>/`, fills in names, world,
+mood and a music seed, and registers the story. It renders immediately with the
+template's placeholder lines. Then rewrite the lines in `story.json` to tell the
+approved story. Keep the scene ids, or rename them in `scenes.tsx` too. If you change
+words that scenes act on (`s.word("hop")`, `s.words(["One", …])`), update those calls
+as well; they fall back to line starts, so nothing breaks, it just loses the beat.
+
+**From scratch:**
+
+1. `src/stories/<id>/story.json` — follow `StorySpec` in `src/types.ts`.
+2. `src/stories/<id>/scenes.tsx` — one component per scene id, exported as
+   `export const scenes = { "scene-id": Component, … }`. Copy the structure of a
+   template or of `src/stories/olive-and-the-lantern-stars/scenes.tsx`.
+3. Register both in `src/stories/index.ts` (above the `@new-story` markers).
+
+Narration lines may carry ElevenLabs v3 audio tags such as `[softly]`, `[whispers]`,
+`[warmly]`, `[giggles]`; they are stripped for subtitles and timing. A scene with no
+component renders a placeholder card showing its lines, so you can build scene by
+scene.
 
 ## 3. Build each scene in code
 
 Rules that keep the films good and the renders identical every time:
 
 - One `<Stage>`, then `<Camera move=…>`, then layers **back to front**: sky →
-  sparkles/moon → far clouds → hills/sea → props → characters.
+  sparkles/moon → far clouds → hills/sea → props → characters. With a world:
+  `<World name>` → props → characters (feet at `WORLDS[name].groundAt(x)`) →
+  `<World name layer="front">`.
 - **Act on the voice.** Anything that happens "when the narrator says X" uses
   `useScene().word("x")` (frame when the word starts) — never hard-coded seconds.
   `s.words([...])` for a list, `s.lineStart(i)` / `s.lineEnd(i)` for lines,

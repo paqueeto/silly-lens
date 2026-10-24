@@ -264,3 +264,13 @@ export const Critter: React.FC<CritterProps> = ({ kind, color, belly, scarf, ...
     </g>
   );
 };
+
+export type CharacterSpec = { kind: "owl" | CritterKind; color?: string; belly?: string; scarf?: string };
+
+/** Any character from a spec, so templates can swap the cast with one line. */
+export const Character: React.FC<Pose & { spec: CharacterSpec }> = ({ spec, ...pose }) =>
+  spec.kind === "owl" ? (
+    <Owl color={spec.color} belly={spec.belly} {...pose} />
+  ) : (
+    <Critter kind={spec.kind} color={spec.color} belly={spec.belly} scarf={spec.scarf} {...pose} />
+  );

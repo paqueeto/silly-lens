@@ -42,6 +42,29 @@ export const FeltDefs: React.FC = () => (
         </feMerge>
       </filter>
 
+      {/* Soft felt: same edges and shadow, lighter grain, for snow and pale colours. */}
+      <filter id="felt-soft" x="-6%" y="-6%" width="112%" height="118%" colorInterpolationFilters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves={2} seed={7} result="fine" />
+        <feDisplacementMap in="SourceGraphic" in2="fine" scale={4} xChannelSelector="R" yChannelSelector="G" result="fuzzy" />
+        <feColorMatrix in="fine" type="saturate" values="0" result="fineGray" />
+        <feComponentTransfer in="fineGray" result="tex">
+          <feFuncR type="linear" slope={0.22} intercept={0.86} />
+          <feFuncG type="linear" slope={0.22} intercept={0.86} />
+          <feFuncB type="linear" slope={0.22} intercept={0.86} />
+          <feFuncA type="linear" slope={0} intercept={1} />
+        </feComponentTransfer>
+        <feBlend in="fuzzy" in2="tex" mode="multiply" result="textured" />
+        <feComposite in="textured" in2="fuzzy" operator="in" result="felted" />
+        <feGaussianBlur in="fuzzy" stdDeviation={4} result="blur" />
+        <feOffset in="blur" dx={0} dy={5} result="offset" />
+        <feFlood floodColor="#2a3550" floodOpacity={0.22} />
+        <feComposite in2="offset" operator="in" result="shadow" />
+        <feMerge>
+          <feMergeNode in="shadow" />
+          <feMergeNode in="felted" />
+        </feMerge>
+      </filter>
+
       {/* Same felt without the drop shadow, for flat background layers. */}
       <filter id="felt-flat" x="-2%" y="-2%" width="104%" height="104%" colorInterpolationFilters="sRGB">
         <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves={2} seed={3} result="fine" />
@@ -115,12 +138,13 @@ export const Stitch: React.FC<StitchProps> = ({ d, color, width = 2.6, opacity =
 );
 
 /** Group that gives its children the felt material. */
-export const Felt: React.FC<{ children: React.ReactNode; flat?: boolean; opacity?: number }> = ({
+export const Felt: React.FC<{ children: React.ReactNode; flat?: boolean; soft?: boolean; opacity?: number }> = ({
   children,
   flat,
+  soft,
   opacity,
 }) => (
-  <g filter={flat ? "url(#felt-flat)" : "url(#felt)"} opacity={opacity}>
+  <g filter={flat ? "url(#felt-flat)" : soft ? "url(#felt-soft)" : "url(#felt)"} opacity={opacity}>
     {children}
   </g>
 );

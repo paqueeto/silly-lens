@@ -47,6 +47,31 @@ object.
 | `<Lighthouse x y scale beam>`, `<Island>`, `<Boat>` | Sea props. Boat bobs by itself. |
 | `<Fireflies count seed area>` | Glowing drifting dots. |
 
+## Worlds (`kit/worlds.tsx`)
+
+Five complete settings: `night-forest`, `night-sea`, `starry-sky`, `sunny-meadow`,
+`snowy-hill`. Composition `worlds` in the studio shows all five.
+
+```tsx
+<World name={WORLD} />                               // everything behind characters
+<Character spec={HERO} x={760} y={WORLDS[WORLD].groundAt(760)} />
+<World name={WORLD} layer="front" />                // foreground flowers, snow, clouds
+```
+
+`WORLDS[name]` also gives `mood`, `place` ("in a sunny meadow") and `thing` (what a
+counting story counts there by default).
+
+## More props
+
+| Piece | Notes |
+|---|---|
+| `<Sun x y r face>` | Turning felt rays, optional smile. |
+| `<Flower x y size color grow>` / `<FlowerPatch groundAt>` | `grow` 0→1 makes it sprout. |
+| `<Snowfall count speed>`, `<Butterflies count area>` | Ambient life. |
+| `<Thing kind x y size pop glow>` | `star`, `flower`, `snowflake`, `apple`, `shell`. For counting and treasures. |
+| `<Hills soft>` | Lighter grain for snow and pale colours. |
+| `<PineTree snow>` | Snow caps. |
+
 ## Characters (`kit/critters.tsx`)
 
 Origin (0, 0) is between the feet; about 230 px tall at scale 1.
@@ -59,7 +84,17 @@ Eyes blink on their own. Flying: `flap={1} tilt={8}` and move x/y along a path w
 `ramp`. Fall asleep: ramp `sleepy` to ~0.95.
 
 Pick a palette per character once (`const OLIVE = {...}`) and spread it in every
-scene.
+scene. Templates use `<Character spec={{ kind: "fox", color?, belly?, scarf? }} …pose>`,
+so the cast changes in one line.
+
+## Moves (`kit/moves.ts`)
+
+| Helper | Use |
+|---|---|
+| `hop(frame, fps, at, height)` | Add to `y` for a hop starting at a frame. |
+| `hops(frame, fps, [frames], height)` | One hop per word: `hops(frame, s.fps, s.words(["hop","hop"]))`. |
+| `walk(frame, fromX, toX, start, end)` | Eased walk across. |
+| `stepBob(frame, fps, start, end)` | Bounce while walking. |
 
 ## Film layer (automatic, `kit/overlays.tsx`)
 

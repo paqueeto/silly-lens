@@ -1,0 +1,48 @@
+{
+  "id": "__ID__",
+  "title": "__TITLE__",
+  "mood": "__MOOD__",
+  "age": "3-5",
+  "music": { "seed": __SEED__ },
+  "scenes": [
+    {
+      "id": "home",
+      "lines": ["[softly] __PLACE_CAP__, there lived a little __KIND__ named __NAME__.", "__NAME__ loved it there, every single day."],
+      "pop": ["__NAME__"]
+    },
+    {
+      "id": "worry",
+      "lines": ["But one day, __NAME__ felt a little worried.", "[whispers] What if I can't do it?"],
+      "pop": ["worried"]
+    },
+    {
+      "id": "friend",
+      "lines": ["Then along came __FRIEND__ the __FRIEND_KIND__.", "[warmly] Don't worry, said __FRIEND__. We can try together."],
+      "pop": ["__FRIEND__"],
+      "sfx": [{ "sound": "pop", "on": "__FRIEND__", "volume": 0.4 }]
+    },
+    {
+      "id": "try",
+      "lines": ["One...", "two...", "three!"],
+      "pop": ["One", "two", "three"],
+      "sfx": [
+        { "sound": "pop", "on": "One", "volume": 0.4 },
+        { "sound": "pop", "on": "two", "volume": 0.4 },
+        { "sound": "twinkle", "on": "three", "volume": 0.45 }
+      ]
+    },
+    {
+      "id": "did-it",
+      "lines": ["[excited] And __NAME__ did it!", "Everything sparkled and shone."],
+      "pop": ["did"],
+      "hold": 0.8,
+      "sfx": [{ "sound": "twinkle", "on": "did", "volume": 0.5 }]
+    },
+    {
+      "id": "goodnight",
+      "lines": ["Now __NAME__ was not worried at all.", "[softly] Goodnight, __NAME__. Goodnight, __FRIEND__."],
+      "pop": ["Goodnight"],
+      "hold": 1.5
+    }
+  ]
+}

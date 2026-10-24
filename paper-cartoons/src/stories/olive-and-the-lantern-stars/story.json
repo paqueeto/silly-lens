@@ -1,0 +1,71 @@
+{
+  "id": "olive-and-the-lantern-stars",
+  "title": "Olive and the Lantern Stars",
+  "mood": "bedtime",
+  "age": "3-5",
+  "music": { "seed": 7, "bpm": 66 },
+  "scenes": [
+    {
+      "id": "oak",
+      "lines": [
+        "[softly] High in an old oak tree, there lived a little owl named Olive.",
+        "Every night, the other owls flew off into the dark."
+      ],
+      "pop": ["Olive", "dark"],
+      "sfx": [
+        { "sound": "crickets", "loop": true, "volume": 0.16 },
+        { "sound": "hoot", "on": "owls", "volume": 0.35 }
+      ]
+    },
+    {
+      "id": "small",
+      "lines": ["But Olive stayed home.", "The dark looked so big... and Olive felt so small."],
+      "pop": ["big", "small"],
+      "sfx": [{ "sound": "crickets", "loop": true, "volume": 0.12 }]
+    },
+    {
+      "id": "watching",
+      "lines": ["Up in the sky, the stars were watching.", "[whispers] Let's help her, they whispered."],
+      "pop": ["stars"],
+      "sfx": [
+        { "sound": "twinkle", "on": "stars", "volume": 0.4 },
+        { "sound": "twinkle", "on": "help", "volume": 0.3 }
+      ]
+    },
+    {
+      "id": "row",
+      "lines": ["One little star.", "Two little stars.", "Three little stars, all in a row!"],
+      "pop": ["One", "Two", "Three"],
+      "sfx": [
+        { "sound": "twinkle", "on": "One", "volume": 0.45 },
+        { "sound": "twinkle", "on": "Two", "volume": 0.45 },
+        { "sound": "twinkle", "on": "Three", "volume": 0.45 },
+        { "sound": "waves", "loop": true, "volume": 0.12 }
+      ]
+    },
+    {
+      "id": "flight",
+      "lines": ["Olive took a deep breath...", "and she flew!", "From star to star, over the sleepy sea."],
+      "pop": ["flew"],
+      "hold": 1.2,
+      "sfx": [
+        { "sound": "flap", "on": "flew", "volume": 0.5 },
+        { "sound": "waves", "loop": true, "volume": 0.22 }
+      ]
+    },
+    {
+      "id": "home",
+      "lines": [
+        "The dark was not so big after all.",
+        "It was full of friends.",
+        "[softly] Goodnight, Olive. Goodnight, stars."
+      ],
+      "pop": ["friends", "Goodnight"],
+      "hold": 1.5,
+      "sfx": [
+        { "sound": "crickets", "loop": true, "volume": 0.12 },
+        { "sound": "twinkle", "on": "friends", "volume": 0.35 }
+      ]
+    }
+  ]
+}

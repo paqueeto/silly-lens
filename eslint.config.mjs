@@ -15,6 +15,8 @@ export default tseslint.config(
       ".nitro/**",
       "node_modules/**",
       "src/routeTree.gen.ts",
+      // Separate Remotion project with its own package.json and tsconfig.
+      "paper-cartoons/**",
     ],
   },
   js.configs.recommended,

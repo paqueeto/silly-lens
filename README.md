@@ -27,3 +27,7 @@ npm run preview
 ## Stack
 
 React, TanStack Start, Vite, Tailwind, MediaPipe face landmarks, canvas filters.
+
+## Also in this repo
+
+`paper-cartoons/` is a separate project: felt-and-paper kids' cartoons rendered from code with Remotion, plus a Claude Code skill that takes one story idea to a finished MP4. See `paper-cartoons/README.md`.

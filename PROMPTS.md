@@ -67,7 +67,7 @@ thumbnail ideas, following the YouTube checklist in the skill.
 | `adventure` | 6 | ready → off we go (hop, hop, hop) → new friend → a treasure → sharing → home | any |
 
 Worlds: `night-forest`, `night-sea`, `starry-sky`, `sunny-meadow`, `snowy-hill`.
-Characters: `owl`, `mouse`, `bunny`, `bear`, `fox`, `cat`, `hedgehog`.
+Characters: `owl`, `mouse`, `bunny`, `bear`, `fox`, `cat`, `hedgehog`, `monkey`.
 Counting things: `star`, `flower`, `snowflake`, `apple`, `shell` (default: the world's own).
 
 Directly from the terminal:

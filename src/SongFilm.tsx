@@ -1,7 +1,7 @@
 import React, { createContext, useContext } from "react";
 import { AbsoluteFill, Html5Audio, Sequence, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import "./assets.ts";
-import { FeltDefs } from "./kit/felt.tsx";
+import { FeltDefs, MaterialContext } from "./kit/felt.tsx";
 import { Karaoke } from "./kit/learning.tsx";
 import { MissingScene, PaperWipe, WordPops } from "./kit/overlays.tsx";
 import { SceneContext } from "./kit/scene.tsx";
@@ -59,30 +59,34 @@ export const SongFilm: React.FC<SongProps> = ({ spec, lyrics, scenes }) => {
   return (
     <AbsoluteFill style={{ background: "#1f2452" }}>
       <SongContext.Provider value={spec}>
-        <FeltDefs />
-        {timeline.map((st, i) => {
-          const section = spec.sections[i];
-          const Scene = scenes[st.id];
-          const from = f(st.start);
-          const duration = f(st.end) - from;
-          const popTimes = findWordTimes(st, section.pop ?? []);
-          const pops = (section.pop ?? [])
-            .map((word, k) => ({ word, frame: popTimes[k] ? f(popTimes[k]!.start) - from : -1 }))
-            .filter((p) => p.frame >= 0);
-          return (
-            <Sequence key={st.id} from={from} durationInFrames={duration + 1} name={st.id}>
-              <SceneContext.Provider value={{ scene: st, duration }}>
-                {Scene ? <Scene /> : <MissingScene id={st.id} lines={st.lines.map((l) => l.text)} />}
-                {pops.length ? <WordPops words={pops} duration={duration} seed={i + 1} /> : null}
-              </SceneContext.Provider>
-            </Sequence>
-          );
-        })}
-        {spec.sections.map((s, i) =>
-          s.enter === "wipe" && i > 0 ? <PaperWipe key={s.id} at={f(s.start)} seed={i + 2} color={i % 2 ? "#f3dcc0" : "#f4e6c8"} /> : null,
-        )}
-        {spec.karaoke === false ? null : <Karaoke lines={lyrics} t={frame / fps} />}
-        <Html5Audio src={staticFile(spec.audio)} />
+        <MaterialContext.Provider value={spec.material ?? "classic"}>
+          <FeltDefs />
+          {timeline.map((st, i) => {
+            const section = spec.sections[i];
+            const Scene = scenes[st.id];
+            const from = f(st.start);
+            const duration = f(st.end) - from;
+            const popTimes = findWordTimes(st, section.pop ?? []);
+            const pops = (section.pop ?? [])
+              .map((word, k) => ({ word, frame: popTimes[k] ? f(popTimes[k]!.start) - from : -1 }))
+              .filter((p) => p.frame >= 0);
+            return (
+              <Sequence key={st.id} from={from} durationInFrames={duration + 1} name={st.id}>
+                <SceneContext.Provider value={{ scene: st, duration }}>
+                  {Scene ? <Scene /> : <MissingScene id={st.id} lines={st.lines.map((l) => l.text)} />}
+                  {pops.length ? <WordPops words={pops} duration={duration} seed={i + 1} /> : null}
+                </SceneContext.Provider>
+              </Sequence>
+            );
+          })}
+          {spec.sections.map((s, i) =>
+            s.enter === "wipe" && i > 0 ? (
+              <PaperWipe key={s.id} at={f(s.start)} seed={i + 2} color={i % 2 ? "#f3dcc0" : "#f4e6c8"} />
+            ) : null,
+          )}
+          {spec.karaoke === false ? null : <Karaoke lines={lyrics} t={frame / fps} />}
+          <Html5Audio src={staticFile(spec.audio)} />
+        </MaterialContext.Provider>
       </SongContext.Provider>
     </AbsoluteFill>
   );

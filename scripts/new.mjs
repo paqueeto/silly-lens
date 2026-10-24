@@ -9,7 +9,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { ROOT } from "./lib.mjs";
 
-const KINDS = ["owl", "mouse", "bunny", "bear", "fox", "cat", "hedgehog"];
+const KINDS = ["owl", "mouse", "bunny", "bear", "fox", "cat", "hedgehog", "monkey"];
 const WORLDS = {
   "night-forest": { mood: "bedtime", place: "in a quiet forest", thing: "star" },
   "night-sea": { mood: "bedtime", place: "by the sleepy sea", thing: "shell" },

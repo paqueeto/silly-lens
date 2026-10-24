@@ -135,7 +135,7 @@ export const Owl: React.FC<OwlProps> = ({ color = "#8a6a9e", belly = "#e9d9b8", 
   );
 };
 
-export type CritterKind = "mouse" | "bunny" | "bear" | "fox" | "cat" | "hedgehog";
+export type CritterKind = "mouse" | "bunny" | "bear" | "fox" | "cat" | "hedgehog" | "monkey";
 
 type CritterProps = Pose & { kind: CritterKind; color?: string; belly?: string; scarf?: string };
 
@@ -146,6 +146,7 @@ const DEFAULT_COLORS: Record<CritterKind, [string, string]> = {
   fox: ["#e07b39", "#fbefe0"],
   cat: ["#5f6c86", "#e9e4dc"],
   hedgehog: ["#8a6a4e", "#f0dcc0"],
+  monkey: ["#8a5a3c", "#f0cfa6"],
 };
 
 /** Character builder: one body, kind-specific ears, nose and tail. */
@@ -196,6 +197,14 @@ export const Critter: React.FC<CritterProps> = ({ kind, color, belly, scarf, ...
         <path d="M 60 -182 L 56 -222 L 34 -200 Z" fill={inner} />
       </>
     ),
+    monkey: (
+      <>
+        <FeltEllipse cx={-84} cy={-158} rx={28} fill={c} inset={8} />
+        <FeltEllipse cx={84} cy={-158} rx={28} fill={c} inset={8} />
+        <circle cx={-84} cy={-158} r={16} fill={b} />
+        <circle cx={84} cy={-158} r={16} fill={b} />
+      </>
+    ),
     hedgehog: (
       <g>
         {Array.from({ length: 11 }, (_, i) => {
@@ -220,8 +229,9 @@ export const Critter: React.FC<CritterProps> = ({ kind, color, belly, scarf, ...
       </g>
     ),
     cat: <path d="M 70 -30 C 150 -30 140 -130 110 -150" stroke={c} strokeWidth={18} fill="none" strokeLinecap="round" />,
+    monkey: <path d="M 66 -40 C 150 -40 172 -130 126 -162 C 96 -182 76 -142 104 -132" stroke={c} strokeWidth={15} fill="none" strokeLinecap="round" />,
   };
-  const snout = kind === "bear" || kind === "fox" || kind === "hedgehog";
+  const snout = kind === "bear" || kind === "fox" || kind === "hedgehog" || kind === "monkey";
   return (
     <g transform={transform}>
       <Felt>
@@ -237,7 +247,16 @@ export const Critter: React.FC<CritterProps> = ({ kind, color, belly, scarf, ...
         <FeltEllipse cx={0} cy={-80} rx={70} ry={80} fill={c} inset={10} />
         <ellipse cx={0} cy={-56} rx={44} ry={46} fill={b} />
         <FeltEllipse cx={0} cy={-160} rx={78} ry={66} fill={c} inset={10} />
-        {snout ? <ellipse cx={0} cy={-134} rx={34} ry={24} fill={b} /> : null}
+        {kind === "monkey" ? (
+          // Heart-shaped face: a light mask around the eyes and a big muzzle.
+          <g>
+            <ellipse cx={-25} cy={-168} rx={30} ry={28} fill={b} />
+            <ellipse cx={25} cy={-168} rx={30} ry={28} fill={b} />
+            <ellipse cx={0} cy={-134} rx={46} ry={32} fill={b} />
+          </g>
+        ) : snout ? (
+          <ellipse cx={0} cy={-134} rx={34} ry={24} fill={b} />
+        ) : null}
         {kind === "fox" ? <path d="M -78 -150 Q -40 -110 0 -112 Q 40 -110 78 -150 Q 60 -100 0 -100 Q -60 -100 -78 -150 Z" fill="#fbefe0" /> : null}
         <ellipse cx={-30} cy={-6} rx={26} ry={14} fill={darker(c, 0.12)} />
         <ellipse cx={30} cy={-6} rx={26} ry={14} fill={darker(c, 0.12)} />
@@ -249,8 +268,8 @@ export const Critter: React.FC<CritterProps> = ({ kind, color, belly, scarf, ...
           </g>
         ) : null}
       </Felt>
-      <Eye cx={-28} cy={-166} r={14} look={look} closed={closed} lid={c} />
-      <Eye cx={28} cy={-166} r={14} look={look} closed={closed} lid={c} />
+      <Eye cx={-28} cy={-166} r={14} look={look} closed={closed} lid={kind === "monkey" ? b : c} />
+      <Eye cx={28} cy={-166} r={14} look={look} closed={closed} lid={kind === "monkey" ? b : c} />
       <ellipse cx={0} cy={snout ? -142 : -144} rx={10} ry={7} fill="#3a2830" />
       <path d={`M -10 ${snout ? -128 : -132} Q 0 ${snout ? -120 : -124} 10 ${snout ? -128 : -132}`} stroke="#3a2830" strokeWidth={3} fill="none" strokeLinecap="round" />
       <ellipse cx={-52} cy={-138} rx={12} ry={7} fill="#f19a9a" opacity={0.55} />

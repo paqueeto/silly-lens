@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext, useContext } from "react";
 
 // Materials. Mount <FeltDefs /> once per film; every shape references the
 // filters by id. Put the filter on a group INSIDE any moving transform so the
@@ -93,6 +93,59 @@ export const FeltDefs: React.FC = () => (
         <feComposite in="t" in2="SourceGraphic" operator="in" />
       </filter>
 
+      {/* Heavy felt (material "felt"): coarse fibres, ragged fuzzy edges with stray
+          fibres, soft relief lighting so it reads as cloth, and a deeper shadow. */}
+      <filter id="felt-heavy" x="-8%" y="-8%" width="116%" height="124%" colorInterpolationFilters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency="0.95" numOctaves={2} seed={7} result="fine" />
+        <feDisplacementMap in="SourceGraphic" in2="fine" scale={7} xChannelSelector="R" yChannelSelector="G" result="fuzzy" />
+        <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves={2} seed={13} result="lumps" />
+        <feDiffuseLighting in="lumps" surfaceScale={1.1} diffuseConstant={1.08} lightingColor="#ffffff" result="relief">
+          <feDistantLight azimuth={235} elevation={58} />
+        </feDiffuseLighting>
+        <feColorMatrix in="fine" type="saturate" values="0" result="fineGray" />
+        <feComponentTransfer in="fineGray" result="fibres">
+          <feFuncR type="linear" slope={0.55} intercept={0.68} />
+          <feFuncG type="linear" slope={0.55} intercept={0.68} />
+          <feFuncB type="linear" slope={0.55} intercept={0.68} />
+          <feFuncA type="linear" slope={0} intercept={1} />
+        </feComponentTransfer>
+        <feBlend in="fibres" in2="relief" mode="multiply" result="tex" />
+        <feBlend in="fuzzy" in2="tex" mode="multiply" result="textured" />
+        <feComposite in="textured" in2="fuzzy" operator="in" result="felted" />
+        <feGaussianBlur in="fuzzy" stdDeviation={1.6} result="haloBlur" />
+        <feComponentTransfer in="haloBlur" result="halo">
+          <feFuncA type="linear" slope={0.55} intercept={0} />
+        </feComponentTransfer>
+        <feGaussianBlur in="fuzzy" stdDeviation={6} result="blur" />
+        <feOffset in="blur" dx={2} dy={8} result="offset" />
+        <feFlood floodColor="#0b0820" floodOpacity={0.36} />
+        <feComposite in2="offset" operator="in" result="shadow" />
+        <feMerge>
+          <feMergeNode in="shadow" />
+          <feMergeNode in="halo" />
+          <feMergeNode in="felted" />
+        </feMerge>
+      </filter>
+
+      {/* Heavy felt without the shadow, for the backdrop panels. */}
+      <filter id="felt-heavy-flat" x="-2%" y="-2%" width="104%" height="104%" colorInterpolationFilters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency="0.95" numOctaves={2} seed={3} result="fine" />
+        <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves={2} seed={17} result="lumps" />
+        <feDiffuseLighting in="lumps" surfaceScale={0.9} diffuseConstant={1.08} lightingColor="#ffffff" result="relief">
+          <feDistantLight azimuth={235} elevation={60} />
+        </feDiffuseLighting>
+        <feColorMatrix in="fine" type="saturate" values="0" result="fineGray" />
+        <feComponentTransfer in="fineGray" result="fibres">
+          <feFuncR type="linear" slope={0.45} intercept={0.74} />
+          <feFuncG type="linear" slope={0.45} intercept={0.74} />
+          <feFuncB type="linear" slope={0.45} intercept={0.74} />
+          <feFuncA type="linear" slope={0} intercept={1} />
+        </feComponentTransfer>
+        <feBlend in="fibres" in2="relief" mode="multiply" result="tex" />
+        <feBlend in="SourceGraphic" in2="tex" mode="multiply" result="textured" />
+        <feComposite in="textured" in2="SourceGraphic" operator="in" />
+      </filter>
+
       {/* Glow for stars, moons, lamps and flames. */}
       <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
         <feGaussianBlur in="SourceGraphic" stdDeviation={14} result="b" />
@@ -124,18 +177,29 @@ export const darker = (c: string, k = 0.3) => mix(c, "#000000", k);
 
 type StitchProps = { d: string; color: string; width?: number; opacity?: number };
 
+/**
+ * "classic": light felt and paper. "felt": heavy felt with chunky thread, felt-panel
+ * skies. A film sets it once (SongFilm reads `material` from the song spec).
+ */
+export type Material = "classic" | "felt";
+export const MaterialContext = createContext<Material>("classic");
+export const useMaterial = () => useContext(MaterialContext);
+
 /** A running stitch: short rounded dashes, slightly lighter than the felt. */
-export const Stitch: React.FC<StitchProps> = ({ d, color, width = 2.6, opacity = 0.8 }) => (
-  <path
-    d={d}
-    fill="none"
-    stroke={color}
-    strokeWidth={width}
-    strokeDasharray="8 7"
-    strokeLinecap="round"
-    opacity={opacity}
-  />
-);
+export const Stitch: React.FC<StitchProps> = ({ d, color, width = 2.6, opacity = 0.8 }) => {
+  const heavy = useMaterial() === "felt";
+  if (!heavy) {
+    return <path d={d} fill="none" stroke={color} strokeWidth={width} strokeDasharray="8 7" strokeLinecap="round" opacity={opacity} />;
+  }
+  // Thicker thread that sits on the felt: a soft shadow under each stitch.
+  const w = width * 1.45;
+  return (
+    <g opacity={Math.min(1, opacity + 0.1)}>
+      <path d={d} fill="none" stroke="#000000" strokeOpacity={0.28} strokeWidth={w} strokeDasharray="11 8" strokeLinecap="round" transform="translate(1 1.6)" />
+      <path d={d} fill="none" stroke={color} strokeWidth={w} strokeDasharray="11 8" strokeLinecap="round" />
+    </g>
+  );
+};
 
 /** Group that gives its children the felt material. */
 export const Felt: React.FC<{ children: React.ReactNode; flat?: boolean; soft?: boolean; opacity?: number }> = ({
@@ -143,11 +207,15 @@ export const Felt: React.FC<{ children: React.ReactNode; flat?: boolean; soft?: 
   flat,
   soft,
   opacity,
-}) => (
-  <g filter={flat ? "url(#felt-flat)" : soft ? "url(#felt-soft)" : "url(#felt)"} opacity={opacity}>
-    {children}
-  </g>
-);
+}) => {
+  const heavy = useMaterial() === "felt";
+  const id = heavy ? (flat ? "felt-heavy-flat" : "felt-heavy") : flat ? "felt-flat" : soft ? "felt-soft" : "felt";
+  return (
+    <g filter={`url(#${id})`} opacity={opacity}>
+      {children}
+    </g>
+  );
+};
 
 export const ellipsePath = (cx: number, cy: number, rx: number, ry: number) =>
   `M ${cx - rx} ${cy} a ${rx} ${ry} 0 1 0 ${rx * 2} 0 a ${rx} ${ry} 0 1 0 ${-rx * 2} 0 Z`;

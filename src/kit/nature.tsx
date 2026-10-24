@@ -1,6 +1,6 @@
 import React from "react";
 import { useCurrentFrame, useVideoConfig } from "remotion";
-import { Felt, FeltEllipse, H, Stitch, W, darker, ellipsePath, lighter, rng, smoothPath, starPath } from "./felt.tsx";
+import { Felt, FeltEllipse, H, Stitch, W, darker, ellipsePath, lighter, mix, rng, smoothPath, starPath, useMaterial } from "./felt.tsx";
 import { wobble } from "./scene.tsx";
 
 // Backdrops and props. Coordinates are in the 1920×1080 stage. Everything
@@ -10,8 +10,41 @@ import { wobble } from "./scene.tsx";
 let gradientId = 0;
 const useId = (prefix: string) => React.useMemo(() => `${prefix}-${gradientId++}`, [prefix]);
 
+/** Felt-material sky: a felt sheet with wavy felt bands stepping towards the horizon colour. */
+const FeltSky: React.FC<{ top: string; bottom: string }> = ({ top, bottom }) => {
+  const bands = [
+    { y: 360, k: 0.2, seed: 3 },
+    { y: 580, k: 0.42, seed: 7 },
+  ];
+  return (
+    <g>
+      <rect x={-120} y={-120} width={W + 240} height={H + 240} fill={top} filter="url(#felt-heavy-flat)" />
+      {bands.map((b) => {
+        const r = rng(b.seed);
+        const ph = r() * 6;
+        const pts: [number, number][] = [];
+        const inner: [number, number][] = [];
+        for (let x = -160; x <= W + 160; x += 80) {
+          const y = b.y + 20 * Math.sin(x / 260 + ph) + 10 * Math.sin(x / 110 + ph * 2);
+          pts.push([x, y]);
+          inner.push([x, y + 16]);
+        }
+        const color = mix(top, bottom, b.k);
+        return (
+          <Felt key={b.y}>
+            <path d={`${smoothPath(pts)} L ${W + 160} ${H + 160} L -160 ${H + 160} Z`} fill={color} />
+            <Stitch d={smoothPath(inner)} color={lighter(color, 0.35)} />
+          </Felt>
+        );
+      })}
+    </g>
+  );
+};
+
 export const Sky: React.FC<{ top: string; bottom: string }> = ({ top, bottom }) => {
   const id = useId("sky");
+  const material = useMaterial();
+  if (material === "felt") return <FeltSky top={top} bottom={bottom} />;
   return (
     <g filter="url(#paper)">
       <defs>

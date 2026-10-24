@@ -30,6 +30,12 @@ stars, blinking eyes), so a scene mostly places things.
 Put `<Felt>` **inside** any moving transform, so the texture travels with the
 object.
 
+**Material.** `MaterialContext` switches the whole film between `"classic"` (light
+felt and paper, gradient skies) and `"felt"` (heavy felt: coarse fibres, ragged
+fuzzy edges, soft relief lighting, chunky thread stitches, skies made of felt
+panels). Song videos set it with `"material": "felt"` in `song.json`. Heavier felt
+renders slower (roughly 1.5× the classic cost).
+
 ## Nature and props (`kit/nature.tsx`)
 
 | Piece | Notes |
@@ -59,7 +65,9 @@ Five complete settings: `night-forest`, `night-sea`, `starry-sky`, `sunny-meadow
 ```
 
 `WORLDS[name]` also gives `mood`, `place` ("in a sunny meadow") and `thing` (what a
-counting story counts there by default).
+counting story counts there by default). Add `calm` to both layers to leave out the
+flying life (butterflies, fireflies, falling snow) and thin the flowers, for busy
+learning content where the counting objects should be the only thing moving.
 
 ## More props
 
@@ -77,7 +85,7 @@ counting story counts there by default).
 Origin (0, 0) is between the feet; about 230 px tall at scale 1.
 
 - `<Owl color belly face …pose>`
-- `<Critter kind="mouse|bunny|bear|fox|cat|hedgehog" color belly scarf …pose>`
+- `<Critter kind="mouse|bunny|bear|fox|cat|hedgehog|monkey" color belly scarf …pose>`
 
 Pose props: `x y scale flip look(−1…1) sleepy(0…1) flap(0…1) bob(0…1) tilt(deg)`.
 Eyes blink on their own. Flying: `flap={1} tilt={8}` and move x/y along a path with

@@ -83,6 +83,8 @@ export type SongSpec = {
   sections: SongSection[];
   /** Show the sing-along lyrics at the bottom (default true). */
   karaoke?: boolean;
+  /** "felt" = heavy felt textures, chunky stitching and felt-panel skies. */
+  material?: "classic" | "felt";
   /**
    * How `npm run soundtrack` builds `audio` from the original song: play it up to `cut`
    * seconds, then repeat the instrumental `loop` [start, end] to fill `duration`, fading out.

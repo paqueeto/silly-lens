@@ -23,7 +23,7 @@ film's length (77 s → 14 min) and a 540p draft about 3×. More cores, faster r
 ## Templates (fastest start)
 
 Three story templates in `templates/` (bedtime, counting, adventure), five worlds
-(night forest, night sea, starry sky, sunny meadow, snowy hill) and seven characters.
+(night forest, night sea, starry sky, sunny meadow, snowy hill) and eight characters.
 One command makes a new cartoon that renders straight away:
 
 ```bash
@@ -40,7 +40,9 @@ Give Claude a song and it transcribes the lyrics with word timings, builds a sto
 from them and animates every number, word and chorus on the beat, with sing-along
 karaoke. Example: `src/stories/los-numeros/` (a 3-minute counting video for an
 original 2-minute song, plus a review section over the song's own intro loop).
-Commands: `npm run lyrics`, `npm run soundtrack`; see the skill, section 9.
+`src/stories/los-numeros-felt/` is the same song in heavy felt with Tito the monkey,
+ending with the song. Commands: `npm run lyrics`, `npm run soundtrack`; see the skill,
+section 9.
 
 ## Make a cartoon with Claude
 

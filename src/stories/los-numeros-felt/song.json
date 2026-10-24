@@ -1,0 +1,25 @@
+{
+  "id": "los-numeros-felt",
+  "title": "Los Números",
+  "subtitle": "¡Cuenta conmigo!",
+  "mood": "playful",
+  "material": "felt",
+  "audio": "los-numeros/song.mp3",
+  "duration": 119.5,
+  "beats": [{ "from": 0, "first": 0.71, "period": 0.61375 }],
+  "sections": [
+    { "id": "intro", "start": 0 },
+    { "id": "uno", "start": 10.0, "enter": "wipe" },
+    { "id": "coro-1", "start": 20.2 },
+    { "id": "dos", "start": 29.0, "enter": "wipe" },
+    { "id": "coro-2", "start": 39.4 },
+    { "id": "lala", "start": 50.3, "enter": "wipe" },
+    { "id": "tres", "start": 54.3 },
+    { "id": "coro-3", "start": 64.0 },
+    { "id": "cuatro", "start": 73.3, "enter": "wipe" },
+    { "id": "coro-4", "start": 83.2 },
+    { "id": "cinco", "start": 95.6, "enter": "wipe" },
+    { "id": "coro-5", "start": 105.6 },
+    { "id": "fin", "start": 115.6, "enter": "wipe" }
+  ]
+}

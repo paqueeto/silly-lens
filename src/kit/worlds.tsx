@@ -63,8 +63,8 @@ const NightSky: React.FC<{ seed: number; moon?: [number, number] }> = ({ seed, m
   </>
 );
 
-const Back: Record<WorldName, React.FC> = {
-  "night-forest": () => (
+const Back: Record<WorldName, React.FC<{ calm?: boolean }>> = {
+  "night-forest": ({ calm }) => (
     <>
       <NightSky seed={11} />
       <Hills y={860} color="#262c5e" height={60} seed={3} />
@@ -72,7 +72,7 @@ const Back: Record<WorldName, React.FC> = {
       <PineTree x={1380} y={880} size={220} color="#1f3d45" />
       <PineTree x={1540} y={890} size={160} color="#24474f" />
       <PineTree x={1800} y={880} size={280} color="#1f3d45" />
-      <Fireflies count={10} seed={3} area={[0, 500, W, 350]} />
+      {calm ? null : <Fireflies count={10} seed={3} area={[0, 500, W, 350]} />}
       <Hills y={930} color="#1c3f3c" height={30} seed={8} />
     </>
   ),
@@ -97,7 +97,7 @@ const Back: Record<WorldName, React.FC> = {
       <Cloud x={900} y={1010} w={760} color="#7378b6" speed={4} seed={6} />
     </>
   ),
-  "sunny-meadow": () => (
+  "sunny-meadow": ({ calm }) => (
     <>
       <Sky top="#8fd3f4" bottom="#fdf1d6" />
       <Sun x={1640} y={190} r={85} />
@@ -107,11 +107,11 @@ const Back: Record<WorldName, React.FC> = {
       <RoundTree x={240} y={790} size={120} color="#5aa05f" />
       <RoundTree x={1460} y={770} size={95} color="#4f9455" />
       <RoundTree x={1580} y={785} size={70} color="#66ad68" />
-      <Butterflies count={3} seed={2} area={[300, 380, 1300, 260]} />
+      {calm ? null : <Butterflies count={3} seed={2} area={[300, 380, 1300, 260]} />}
       <Hills y={905} color="#79bf6c" height={35} seed={4} stitchColor="#c9edb8" />
     </>
   ),
-  "snowy-hill": () => (
+  "snowy-hill": ({ calm }) => (
     <>
       <Sky top="#6fa3dc" bottom="#c6dcf3" />
       <Sun x={1650} y={180} r={70} face={false} />
@@ -121,7 +121,7 @@ const Back: Record<WorldName, React.FC> = {
       <PineTree x={420} y={790} size={170} color="#357561" snow />
       <PineTree x={1500} y={780} size={210} color="#2f6a58" snow />
       <Hills y={915} color="#f7f9fd" height={40} seed={6} stitchColor="#c9d8ec" soft />
-      <Snowfall count={60} seed={5} />
+      {calm ? null : <Snowfall count={60} seed={5} />}
     </>
   ),
 };
@@ -141,16 +141,19 @@ const Shore: React.FC = () => {
   );
 };
 
-const Front: Partial<Record<WorldName, React.FC>> = {
-  "sunny-meadow": () => <FlowerPatch groundAt={(x) => meadowGround(x) + 60} count={16} seed={9} size={22} />,
-  "snowy-hill": () => <Snowfall count={25} seed={12} speed={90} />,
+const Front: Partial<Record<WorldName, React.FC<{ calm?: boolean }>>> = {
+  "sunny-meadow": ({ calm }) => <FlowerPatch groundAt={(x) => meadowGround(x) + 60} count={calm ? 7 : 16} seed={9} size={22} />,
+  "snowy-hill": ({ calm }) => (calm ? null : <Snowfall count={25} seed={12} speed={90} />),
   "starry-sky": () => <Cloud x={1500} y={1060} w={700} color="#8186c2" speed={5} seed={9} />,
 };
 
-/** A full setting. Draw it first (layer "back"), then characters, then layer "front". */
-export const World: React.FC<{ name: WorldName; layer?: "back" | "front" }> = ({ name, layer = "back" }) => {
+/**
+ * A full setting. Draw it first (layer "back"), then characters, then layer "front".
+ * `calm` leaves out the flying life (butterflies, fireflies, falling snow) and thins the flowers.
+ */
+export const World: React.FC<{ name: WorldName; layer?: "back" | "front"; calm?: boolean }> = ({ name, layer = "back", calm }) => {
   const Layer = layer === "back" ? Back[name] : Front[name];
-  return Layer ? <Layer /> : null;
+  return Layer ? <Layer calm={calm} /> : null;
 };
 
 export const WORLD_NAMES = Object.keys(WORLDS) as WorldName[];

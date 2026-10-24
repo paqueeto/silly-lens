@@ -24,7 +24,10 @@ type FeltNumberProps = {
   glow?: boolean;
 };
 
-/** A big felt numeral with its word underneath. (x, y) is the numeral's centre. */
+/**
+ * A big felt numeral (or short word) with its word underneath. (x, y) is the
+ * numeral's centre. Below 130 px the ragged felt edge is skipped so it stays legible.
+ */
 export const FeltNumber: React.FC<FeltNumberProps> = ({
   n,
   x,
@@ -55,7 +58,7 @@ export const FeltNumber: React.FC<FeltNumberProps> = ({
           <circle cx={0} cy={0} r={size * 0.75} fill="url(#felt-number-glow)" />
         </>
       ) : null}
-      <Felt>
+      <Felt flat={size < 130}>
         <text
           x={0}
           y={size * 0.36}

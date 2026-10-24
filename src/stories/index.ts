@@ -16,7 +16,11 @@ import type { LineTime, SongSpec } from "../types.ts";
 import numerosSpec from "./los-numeros/song.json";
 import numerosLyrics from "./los-numeros/lyrics.json";
 import { scenes as numerosScenes } from "./los-numeros/scenes.tsx";
+import numerosFeltSpec from "./los-numeros-felt/song.json";
+import { scenes as numerosFeltScenes } from "./los-numeros-felt/scenes.tsx";
 
 export const SONGS: { spec: SongSpec; lyrics: LineTime[]; scenes: Record<string, React.FC> }[] = [
   { spec: numerosSpec as SongSpec, lyrics: numerosLyrics as LineTime[], scenes: numerosScenes },
+  // Same song and lyrics: heavy felt, Tito the monkey, calm scenes, ends with the song.
+  { spec: numerosFeltSpec as SongSpec, lyrics: numerosLyrics as LineTime[], scenes: numerosFeltScenes },
 ];

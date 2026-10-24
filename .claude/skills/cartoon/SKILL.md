@@ -1,6 +1,6 @@
 ---
 name: cartoon
-description: Make felt-and-paper kids' cartoons in this project, from one idea to a finished MP4 — story templates (bedtime, counting, adventure) and world templates, scene plan, scenes built in code with the felt kit, ElevenLabs narration synced to the words, music written in code, render, and compilations. Use when asked to make, change or extend a kids' cartoon or bedtime story video, or to start one from a template.
+description: Make felt-and-paper kids' cartoons in this project, from one idea to a finished MP4 — story templates (bedtime, counting, adventure) and world templates, scene plan, scenes built in code with the felt kit, ElevenLabs narration synced to the words, music written in code, render, and compilations. Use when asked to make, change or extend a kids' cartoon or bedtime story video, to start one from a template, or to make a music video from the user's own song.
 ---
 
 # Cartoon: idea → MP4
@@ -165,3 +165,35 @@ Renders anything missing, joins without re-encoding, and writes
 "Make the owl pink", "slow down scene 3", "add a frog" → edit `story.json` or the
 scene component, `npm run still` to check, then re-render. Changing a narration line
 means `npm run narrate` again (only that line is re-voiced).
+
+## 9. Music video from the user's song
+
+When the user brings a song (their own recording), the song drives the timeline
+instead of narration. Worked example: `src/stories/los-numeros/`.
+
+1. Put the file at `public/<id>/song.mp3`.
+2. **Lyrics with word timings** (local, free; needs Python):
+   ```bash
+   python3 -m venv .venv && .venv/bin/pip install faster-whisper
+   .venv/bin/python scripts/transcribe.py public/<id>/song.mp3 medium out/<id>.whisper.json "<a hint: title, key words>" es
+   npm run lyrics -- <id> out/<id>.whisper.json        # → src/stories/<id>/lyrics.json
+   ```
+   Show the user the lyrics; it is their song, so they confirm any misheard words.
+   Fix text by hand in `lyrics.json` (keep timings). `medium` is far more reliable
+   than `small` on singing.
+3. **Tempo** if you need beats (`librosa.beat.beat_track` in the same venv) → the
+   `beats` grid in `song.json`.
+4. **`song.json`** (`SongSpec`): sections at phrase boundaries just before each
+   section's first sung word; `enter: "wipe"` only on big changes (verses), plain cuts
+   on choruses; `pop` words per section.
+5. **Longer than the song?** Add a `soundtrack` block (cut point plus a clean 2-bar
+   instrumental loop, found with an onset autocorrelation and checked by ear or by
+   seam continuity) and `npm run soundtrack -- <id>`. Fill the extra time with a
+   review or sing-along section, not filler.
+6. **Scenes**: same rules, and act on the sung words (`s.word`, `s.every("uno")`).
+   `useBeat()` from `SongFilm.tsx` gives beat frames for sections without lyrics.
+   Learning pieces: `FeltNumber`, `FeltHand` (counts on its fingers), `PawPrint`,
+   `FeltBoard`, `MusicNote`, `Karaoke` (automatic).
+7. Register in `SONGS` in `src/stories/index.ts`; then `npm run still -- <id> --scenes`,
+   `npm run render -- <id> --draft`, final render. Verify the audio offset against
+   the soundtrack is 0 ms.

@@ -38,6 +38,16 @@ export function useScene() {
     /** Frames for words listed in order (same matching as `pop`). */
     words: (list: string[]) => findWordTimes(info.scene, list).map((w) => (w ? toFrame(w.start) : null)),
     seconds: (s: number) => Math.round(s * fps),
+    /** Frames of every occurrence of any of these words, in order, with which word it was. */
+    every(...list: string[]): { frame: number; word: string }[] {
+      const want = list.map(normalizeWord);
+      return info.scene.lines
+        .flatMap((l) => l.words)
+        .filter((w) => want.includes(normalizeWord(w.w)))
+        .map((w) => ({ frame: toFrame(w.start), word: normalizeWord(w.w) }));
+    },
+    /** Scene start in film seconds. */
+    start: info.scene.start,
   };
 }
 

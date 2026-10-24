@@ -1,3 +1,4 @@
+import type React from "react";
 import type { SceneComponents } from "../Film.tsx";
 import type { StorySpec } from "../types.ts";
 import oliveSpec from "./olive-and-the-lantern-stars/story.json";
@@ -8,4 +9,14 @@ import { scenes as oliveScenes } from "./olive-and-the-lantern-stars/scenes.tsx"
 export const STORIES: { spec: StorySpec; scenes: SceneComponents }[] = [
   { spec: oliveSpec as StorySpec, scenes: oliveScenes },
   // @new-story-entries (npm run new adds stories above this line)
+];
+
+// Song videos: soundtrack + word-timed lyrics drive the timeline (see SongFilm.tsx).
+import type { LineTime, SongSpec } from "../types.ts";
+import numerosSpec from "./los-numeros/song.json";
+import numerosLyrics from "./los-numeros/lyrics.json";
+import { scenes as numerosScenes } from "./los-numeros/scenes.tsx";
+
+export const SONGS: { spec: SongSpec; lyrics: LineTime[]; scenes: Record<string, React.FC> }[] = [
+  { spec: numerosSpec as SongSpec, lyrics: numerosLyrics as LineTime[], scenes: numerosScenes },
 ];

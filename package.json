@@ -10,7 +10,9 @@
     "still": "node scripts/still.mjs",
     "render": "node scripts/render.mjs",
     "hour": "node scripts/hour.mjs",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "lyrics": "node scripts/lyrics.mjs",
+    "soundtrack": "node scripts/soundtrack.mjs"
   },
   "dependencies": {
     "@remotion/bundler": "4.0.538",

@@ -57,3 +57,35 @@ export type Timing = {
   outro: { start: number; end: number };
   scenes: SceneTime[];
 };
+
+/** A music video: the timeline comes from a song and its word-timed lyrics. */
+export type SongSection = {
+  id: string;
+  /** Seconds from the start of the film; a section ends where the next begins. */
+  start: number;
+  /** How the section comes in: a torn-paper wipe, or a straight cut (default). */
+  enter?: "wipe" | "cut";
+  /** Words that pop on screen when sung (same as a story's `pop`). */
+  pop?: string[];
+};
+
+export type SongSpec = {
+  id: string;
+  title: string;
+  subtitle?: string;
+  mood: Mood;
+  /** Soundtrack under public/. */
+  audio: string;
+  /** Film length in seconds. */
+  duration: number;
+  /** Beat grids: from `from` seconds on, beats fall at `first + k * period`. */
+  beats: { from: number; first: number; period: number }[];
+  sections: SongSection[];
+  /** Show the sing-along lyrics at the bottom (default true). */
+  karaoke?: boolean;
+  /**
+   * How `npm run soundtrack` builds `audio` from the original song: play it up to `cut`
+   * seconds, then repeat the instrumental `loop` [start, end] to fill `duration`, fading out.
+   */
+  soundtrack?: { song: string; cut: number; loop?: [number, number]; fadeOut?: number };
+};

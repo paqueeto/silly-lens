@@ -4,7 +4,8 @@ import { Film, type FilmProps } from "./Film.tsx";
 import { KitGallery } from "./KitGallery.tsx";
 import { WORLD_SECONDS, WorldGallery } from "./WorldGallery.tsx";
 import { WORLD_NAMES } from "./kit/worlds.tsx";
-import { STORIES } from "./stories/index.ts";
+import { SONGS, STORIES } from "./stories/index.ts";
+import { SongFilm, songTiming } from "./SongFilm.tsx";
 import { estimateTiming, stripTags } from "./timing.ts";
 import type { StorySpec, Timing } from "./types.ts";
 
@@ -48,6 +49,12 @@ const films = STORIES.map(({ spec, scenes }) => {
   return { spec, Component };
 });
 
+// Spec, lyrics and scene components are bound here, not passed as props: props must be JSON.
+const songFilms = SONGS.map(({ spec, lyrics, scenes }) => {
+  const Component: React.FC<Record<string, unknown>> = () => <SongFilm spec={spec} lyrics={lyrics} scenes={scenes} />;
+  return { spec, lyrics, Component };
+});
+
 export const Root: React.FC = () => (
   <>
     {films.map(({ spec, Component }) => (
@@ -68,6 +75,19 @@ export const Root: React.FC = () => (
           ]);
           return { durationInFrames: Math.ceil(timing.total * FPS), props: { ...props, timing, hasMusic, hasSfx } };
         }}
+      />
+    ))}
+    {songFilms.map(({ spec, lyrics, Component }) => (
+      <Composition
+        key={spec.id}
+        id={spec.id}
+        component={Component}
+        fps={FPS}
+        width={1920}
+        height={1080}
+        durationInFrames={Math.round(spec.duration * FPS)}
+        // Serializable summary so the still and render scripts treat songs like stories.
+        defaultProps={{ timing: songTiming(spec, lyrics), hasMusic: true, hasSfx: true }}
       />
     ))}
     <Composition id="kit" component={KitGallery} fps={FPS} width={1920} height={1080} durationInFrames={FPS * 8} />

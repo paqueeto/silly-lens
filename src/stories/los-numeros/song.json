@@ -1,0 +1,129 @@
+{
+  "id": "los-numeros",
+  "title": "Los Números",
+  "subtitle": "¡Cuenta conmigo!",
+  "mood": "playful",
+  "audio": "los-numeros/soundtrack.wav",
+  "soundtrack": {
+    "song": "los-numeros/song.mp3",
+    "cut": 116.5,
+    "loop": [
+      3.17,
+      8.08
+    ],
+    "fadeOut": 3
+  },
+  "duration": 180,
+  "beats": [
+    {
+      "from": 0,
+      "first": 0.71,
+      "period": 0.61375
+    },
+    {
+      "from": 116.5,
+      "first": 116.5,
+      "period": 0.61375
+    }
+  ],
+  "sections": [
+    {
+      "id": "intro",
+      "start": 0
+    },
+    {
+      "id": "uno",
+      "start": 10.0,
+      "enter": "wipe",
+      "pop": [
+        "dedito"
+      ]
+    },
+    {
+      "id": "coro-1",
+      "start": 20.2
+    },
+    {
+      "id": "dos",
+      "start": 29.0,
+      "enter": "wipe",
+      "pop": [
+        "manitas"
+      ]
+    },
+    {
+      "id": "coro-2",
+      "start": 39.4
+    },
+    {
+      "id": "lala",
+      "start": 50.3,
+      "enter": "wipe"
+    },
+    {
+      "id": "tres",
+      "start": 54.3,
+      "pop": [
+        "estrellitas"
+      ]
+    },
+    {
+      "id": "coro-3",
+      "start": 64.0
+    },
+    {
+      "id": "cuatro",
+      "start": 73.3,
+      "enter": "wipe",
+      "pop": [
+        "patitas"
+      ]
+    },
+    {
+      "id": "coro-4",
+      "start": 83.2
+    },
+    {
+      "id": "cinco",
+      "start": 95.6,
+      "enter": "wipe",
+      "pop": [
+        "dedos"
+      ]
+    },
+    {
+      "id": "coro-5",
+      "start": 105.6
+    },
+    {
+      "id": "repaso",
+      "start": 116.5,
+      "enter": "wipe"
+    },
+    {
+      "id": "repaso-1",
+      "start": 126.32
+    },
+    {
+      "id": "repaso-2",
+      "start": 136.14
+    },
+    {
+      "id": "repaso-3",
+      "start": 145.96
+    },
+    {
+      "id": "repaso-4",
+      "start": 155.78
+    },
+    {
+      "id": "repaso-5",
+      "start": 165.6
+    },
+    {
+      "id": "fin",
+      "start": 175.42,
+      "enter": "wipe"
+    }
+  ]
+}

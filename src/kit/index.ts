@@ -6,4 +6,5 @@ export * from "./nature.tsx";
 export * from "./critters.tsx";
 export * from "./worlds.tsx";
 export * from "./moves.ts";
+export * from "./learning.tsx";
 export { FONT } from "./overlays.tsx";

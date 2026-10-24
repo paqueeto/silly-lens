@@ -34,6 +34,14 @@ npm run new -- pip-and-the-big-snow --template adventure --hero fox --name Pip \
 Then rewrite the lines in `src/stories/pip-and-the-big-snow/story.json`. Ready
 prompts for Claude are in `PROMPTS.md`.
 
+## Music videos from your own songs
+
+Give Claude a song and it transcribes the lyrics with word timings, builds a storyline
+from them and animates every number, word and chorus on the beat, with sing-along
+karaoke. Example: `src/stories/los-numeros/` (a 3-minute counting video for an
+original 2-minute song, plus a review section over the song's own intro loop).
+Commands: `npm run lyrics`, `npm run soundtrack`; see the skill, section 9.
+
 ## Make a cartoon with Claude
 
 Open Claude Code in this folder and say, for example:
@@ -82,6 +90,7 @@ src/kit/          felt materials, worlds, nature props, characters, moves, camer
 src/stories/<id>/ story.json (script) + scenes.tsx (scenes in code)
 src/Film.tsx      title → scenes → end card, word pops, wipes, audio mix
 src/timing.ts     narration timeline (shared by scripts and renderer)
-scripts/          narrate, music/sfx synth, stills, render, hour
+src/SongFilm.tsx  music videos: song sections, karaoke, beat grid
+scripts/          narrate, music/sfx synth, lyrics/transcribe, soundtrack, stills, render, hour
 public/<id>/      timing.json, narration lines (keep them: they cost credits), music
 ```

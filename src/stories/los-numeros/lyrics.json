@@ -1,0 +1,1129 @@
+[
+ {
+  "text": "Uno, uno, un dedito",
+  "start": 10.32,
+  "end": 12.58,
+  "words": [
+   {
+    "w": "Uno,",
+    "start": 10.32,
+    "end": 11
+   },
+   {
+    "w": "uno,",
+    "start": 11.18,
+    "end": 11.38
+   },
+   {
+    "w": "un",
+    "start": 11.54,
+    "end": 11.66
+   },
+   {
+    "w": "dedito",
+    "start": 11.66,
+    "end": 12.58
+   }
+  ]
+ },
+ {
+  "text": "Uno, uno, mira aquí",
+  "start": 13.26,
+  "end": 14.68,
+  "words": [
+   {
+    "w": "Uno,",
+    "start": 13.26,
+    "end": 13.46
+   },
+   {
+    "w": "uno,",
+    "start": 13.62,
+    "end": 13.84
+   },
+   {
+    "w": "mira",
+    "start": 13.94,
+    "end": 14.08
+   },
+   {
+    "w": "aquí",
+    "start": 14.08,
+    "end": 14.68
+   }
+  ]
+ },
+ {
+  "text": "Uno, uno, un dedito",
+  "start": 15.54,
+  "end": 17.26,
+  "words": [
+   {
+    "w": "Uno,",
+    "start": 15.54,
+    "end": 15.9
+   },
+   {
+    "w": "uno,",
+    "start": 16.08,
+    "end": 16.32
+   },
+   {
+    "w": "un",
+    "start": 16.38,
+    "end": 16.56
+   },
+   {
+    "w": "dedito",
+    "start": 16.56,
+    "end": 17.26
+   }
+  ]
+ },
+ {
+  "text": "Uno, uno, para ti",
+  "start": 18.12,
+  "end": 19.66,
+  "words": [
+   {
+    "w": "Uno,",
+    "start": 18.12,
+    "end": 18.5
+   },
+   {
+    "w": "uno,",
+    "start": 18.52,
+    "end": 18.7
+   },
+   {
+    "w": "para",
+    "start": 18.7,
+    "end": 19.04
+   },
+   {
+    "w": "ti",
+    "start": 19.04,
+    "end": 19.66
+   }
+  ]
+ },
+ {
+  "text": "Cuenta conmigo: uno, dos, tres",
+  "start": 20.52,
+  "end": 22.58,
+  "words": [
+   {
+    "w": "Cuenta",
+    "start": 20.52,
+    "end": 20.74
+   },
+   {
+    "w": "conmigo:",
+    "start": 20.74,
+    "end": 21.56
+   },
+   {
+    "w": "uno,",
+    "start": 21.56,
+    "end": 21.88
+   },
+   {
+    "w": "dos,",
+    "start": 21.88,
+    "end": 22.22
+   },
+   {
+    "w": "tres",
+    "start": 22.22,
+    "end": 22.58
+   }
+  ]
+ },
+ {
+  "text": "Cuenta conmigo otra vez",
+  "start": 22.92,
+  "end": 24.56,
+  "words": [
+   {
+    "w": "Cuenta",
+    "start": 22.92,
+    "end": 23.2
+   },
+   {
+    "w": "conmigo",
+    "start": 23.2,
+    "end": 23.82
+   },
+   {
+    "w": "otra",
+    "start": 23.82,
+    "end": 24.08
+   },
+   {
+    "w": "vez",
+    "start": 24.08,
+    "end": 24.56
+   }
+  ]
+ },
+ {
+  "text": "Cuenta conmigo: uno, dos, tres",
+  "start": 25.48,
+  "end": 27.52,
+  "words": [
+   {
+    "w": "Cuenta",
+    "start": 25.48,
+    "end": 25.66
+   },
+   {
+    "w": "conmigo:",
+    "start": 25.66,
+    "end": 26.48
+   },
+   {
+    "w": "uno,",
+    "start": 26.48,
+    "end": 26.78
+   },
+   {
+    "w": "dos,",
+    "start": 26.78,
+    "end": 27.12
+   },
+   {
+    "w": "tres",
+    "start": 27.14,
+    "end": 27.52
+   }
+  ]
+ },
+ {
+  "text": "¡Vamos a contar!",
+  "start": 27.82,
+  "end": 29.18,
+  "words": [
+   {
+    "w": "¡Vamos",
+    "start": 27.82,
+    "end": 28.24
+   },
+   {
+    "w": "a",
+    "start": 28.24,
+    "end": 28.74
+   },
+   {
+    "w": "contar!",
+    "start": 28.74,
+    "end": 29.18
+   }
+  ]
+ },
+ {
+  "text": "Dos, dos, dos manitas",
+  "start": 29.18,
+  "end": 32.6,
+  "words": [
+   {
+    "w": "Dos,",
+    "start": 29.18,
+    "end": 30.62
+   },
+   {
+    "w": "dos,",
+    "start": 30.92,
+    "end": 31.3
+   },
+   {
+    "w": "dos",
+    "start": 31.5,
+    "end": 31.74
+   },
+   {
+    "w": "manitas",
+    "start": 31.74,
+    "end": 32.6
+   }
+  ]
+ },
+ {
+  "text": "Dos, dos, mira aquí",
+  "start": 32.78,
+  "end": 34.82,
+  "words": [
+   {
+    "w": "Dos,",
+    "start": 32.78,
+    "end": 33.32
+   },
+   {
+    "w": "dos,",
+    "start": 33.36,
+    "end": 33.86
+   },
+   {
+    "w": "mira",
+    "start": 34.3,
+    "end": 34.3
+   },
+   {
+    "w": "aquí",
+    "start": 34.3,
+    "end": 34.82
+   }
+  ]
+ },
+ {
+  "text": "Dos, dos, dos manitas",
+  "start": 34.82,
+  "end": 37.48,
+  "words": [
+   {
+    "w": "Dos,",
+    "start": 34.82,
+    "end": 35.5
+   },
+   {
+    "w": "dos,",
+    "start": 35.82,
+    "end": 36.28
+   },
+   {
+    "w": "dos",
+    "start": 36.28,
+    "end": 36.62
+   },
+   {
+    "w": "manitas",
+    "start": 36.62,
+    "end": 37.48
+   }
+  ]
+ },
+ {
+  "text": "Dos, dos, para ti",
+  "start": 37.86,
+  "end": 39.64,
+  "words": [
+   {
+    "w": "Dos,",
+    "start": 37.86,
+    "end": 38.16
+   },
+   {
+    "w": "dos,",
+    "start": 38.2,
+    "end": 38.34
+   },
+   {
+    "w": "para",
+    "start": 38.34,
+    "end": 38.7
+   },
+   {
+    "w": "ti",
+    "start": 38.7,
+    "end": 39.64
+   }
+  ]
+ },
+ {
+  "text": "Cuenta conmigo: uno, dos, tres",
+  "start": 39.64,
+  "end": 42.24,
+  "words": [
+   {
+    "w": "Cuenta",
+    "start": 39.64,
+    "end": 40.4
+   },
+   {
+    "w": "conmigo:",
+    "start": 40.4,
+    "end": 41.2
+   },
+   {
+    "w": "uno,",
+    "start": 41.2,
+    "end": 41.52
+   },
+   {
+    "w": "dos,",
+    "start": 41.52,
+    "end": 41.84
+   },
+   {
+    "w": "tres",
+    "start": 41.84,
+    "end": 42.24
+   }
+  ]
+ },
+ {
+  "text": "Cuenta conmigo otra vez",
+  "start": 42.24,
+  "end": 44.6,
+  "words": [
+   {
+    "w": "Cuenta",
+    "start": 42.24,
+    "end": 42.84
+   },
+   {
+    "w": "conmigo",
+    "start": 42.84,
+    "end": 43.46
+   },
+   {
+    "w": "otra",
+    "start": 43.46,
+    "end": 43.74
+   },
+   {
+    "w": "vez",
+    "start": 43.74,
+    "end": 44.6
+   }
+  ]
+ },
+ {
+  "text": "Cuenta conmigo: uno, dos, tres",
+  "start": 44.6,
+  "end": 47.22,
+  "words": [
+   {
+    "w": "Cuenta",
+    "start": 44.6,
+    "end": 45.28
+   },
+   {
+    "w": "conmigo:",
+    "start": 45.28,
+    "end": 46.1
+   },
+   {
+    "w": "uno,",
+    "start": 46.1,
+    "end": 46.44
+   },
+   {
+    "w": "dos,",
+    "start": 46.44,
+    "end": 46.74
+   },
+   {
+    "w": "tres",
+    "start": 46.74,
+    "end": 47.22
+   }
+  ]
+ },
+ {
+  "text": "¡Vamos a contar!",
+  "start": 47.22,
+  "end": 49.58,
+  "words": [
+   {
+    "w": "¡Vamos",
+    "start": 47.22,
+    "end": 47.88
+   },
+   {
+    "w": "a",
+    "start": 47.88,
+    "end": 48.32
+   },
+   {
+    "w": "contar!",
+    "start": 48.32,
+    "end": 49.58
+   }
+  ]
+ },
+ {
+  "text": "La, la, la, la, la",
+  "start": 51.86,
+  "end": 54.52,
+  "words": [
+   {
+    "w": "La,",
+    "start": 51.86,
+    "end": 52.64
+   },
+   {
+    "w": "la,",
+    "start": 52.66,
+    "end": 52.88
+   },
+   {
+    "w": "la,",
+    "start": 52.88,
+    "end": 53.14
+   },
+   {
+    "w": "la,",
+    "start": 53.14,
+    "end": 53.52
+   },
+   {
+    "w": "la",
+    "start": 53.52,
+    "end": 54.52
+   }
+  ]
+ },
+ {
+  "text": "Tres, tres, tres estrellitas",
+  "start": 54.52,
+  "end": 56.76,
+  "words": [
+   {
+    "w": "Tres,",
+    "start": 54.52,
+    "end": 54.94
+   },
+   {
+    "w": "tres,",
+    "start": 55.1,
+    "end": 55.34
+   },
+   {
+    "w": "tres",
+    "start": 55.4,
+    "end": 55.78
+   },
+   {
+    "w": "estrellitas",
+    "start": 55.78,
+    "end": 56.76
+   }
+  ]
+ },
+ {
+  "text": "Tres, tres, mira aquí",
+  "start": 56.76,
+  "end": 59.1,
+  "words": [
+   {
+    "w": "Tres,",
+    "start": 56.76,
+    "end": 57.48
+   },
+   {
+    "w": "tres,",
+    "start": 57.62,
+    "end": 57.72
+   },
+   {
+    "w": "mira",
+    "start": 57.72,
+    "end": 58.18
+   },
+   {
+    "w": "aquí",
+    "start": 58.18,
+    "end": 59.1
+   }
+  ]
+ },
+ {
+  "text": "Tres, tres, tres estrellitas",
+  "start": 59.1,
+  "end": 61.72,
+  "words": [
+   {
+    "w": "Tres,",
+    "start": 59.1,
+    "end": 59.92
+   },
+   {
+    "w": "tres,",
+    "start": 59.98,
+    "end": 60.22
+   },
+   {
+    "w": "tres",
+    "start": 60.22,
+    "end": 60.64
+   },
+   {
+    "w": "estrellitas",
+    "start": 60.64,
+    "end": 61.72
+   }
+  ]
+ },
+ {
+  "text": "Tres, tres, para ti",
+  "start": 61.72,
+  "end": 64.14,
+  "words": [
+   {
+    "w": "Tres,",
+    "start": 61.72,
+    "end": 62.44
+   },
+   {
+    "w": "tres,",
+    "start": 62.48,
+    "end": 62.86
+   },
+   {
+    "w": "para",
+    "start": 62.86,
+    "end": 63.24
+   },
+   {
+    "w": "ti",
+    "start": 63.24,
+    "end": 64.14
+   }
+  ]
+ },
+ {
+  "text": "Cuenta conmigo: uno, dos, tres",
+  "start": 64.14,
+  "end": 66.72,
+  "words": [
+   {
+    "w": "Cuenta",
+    "start": 64.14,
+    "end": 64.92
+   },
+   {
+    "w": "conmigo:",
+    "start": 64.92,
+    "end": 65.72
+   },
+   {
+    "w": "uno,",
+    "start": 65.72,
+    "end": 65.98
+   },
+   {
+    "w": "dos,",
+    "start": 65.98,
+    "end": 66.34
+   },
+   {
+    "w": "tres",
+    "start": 66.34,
+    "end": 66.72
+   }
+  ]
+ },
+ {
+  "text": "Cuenta conmigo otra vez",
+  "start": 66.72,
+  "end": 69.16,
+  "words": [
+   {
+    "w": "Cuenta",
+    "start": 66.72,
+    "end": 67.34
+   },
+   {
+    "w": "conmigo",
+    "start": 67.34,
+    "end": 67.96
+   },
+   {
+    "w": "otra",
+    "start": 67.96,
+    "end": 68.24
+   },
+   {
+    "w": "vez",
+    "start": 68.24,
+    "end": 69.16
+   }
+  ]
+ },
+ {
+  "text": "Cuenta conmigo: uno, dos, tres",
+  "start": 69.16,
+  "end": 71.72,
+  "words": [
+   {
+    "w": "Cuenta",
+    "start": 69.16,
+    "end": 69.8
+   },
+   {
+    "w": "conmigo:",
+    "start": 69.8,
+    "end": 70.62
+   },
+   {
+    "w": "uno,",
+    "start": 70.62,
+    "end": 70.92
+   },
+   {
+    "w": "dos,",
+    "start": 70.92,
+    "end": 71.24
+   },
+   {
+    "w": "tres",
+    "start": 71.26,
+    "end": 71.72
+   }
+  ]
+ },
+ {
+  "text": "¡Vamos a contar!",
+  "start": 71.72,
+  "end": 73.5,
+  "words": [
+   {
+    "w": "¡Vamos",
+    "start": 71.72,
+    "end": 72.36
+   },
+   {
+    "w": "a",
+    "start": 72.36,
+    "end": 72.82
+   },
+   {
+    "w": "contar!",
+    "start": 72.82,
+    "end": 73.5
+   }
+  ]
+ },
+ {
+  "text": "Cuatro, cuatro patitas",
+  "start": 73.5,
+  "end": 76.38,
+  "words": [
+   {
+    "w": "Cuatro,",
+    "start": 73.5,
+    "end": 74.82
+   },
+   {
+    "w": "cuatro",
+    "start": 75,
+    "end": 75.32
+   },
+   {
+    "w": "patitas",
+    "start": 75.32,
+    "end": 76.38
+   }
+  ]
+ },
+ {
+  "text": "Cuatro, cuatro, mira aquí",
+  "start": 76.38,
+  "end": 78.9,
+  "words": [
+   {
+    "w": "Cuatro,",
+    "start": 76.38,
+    "end": 77.34
+   },
+   {
+    "w": "cuatro,",
+    "start": 77.42,
+    "end": 77.66
+   },
+   {
+    "w": "mira",
+    "start": 77.84,
+    "end": 77.88
+   },
+   {
+    "w": "aquí",
+    "start": 77.88,
+    "end": 78.9
+   }
+  ]
+ },
+ {
+  "text": "Cuatro, cuatro patitas",
+  "start": 78.9,
+  "end": 81.3,
+  "words": [
+   {
+    "w": "Cuatro,",
+    "start": 78.9,
+    "end": 79.74
+   },
+   {
+    "w": "cuatro",
+    "start": 79.94,
+    "end": 80.24
+   },
+   {
+    "w": "patitas",
+    "start": 80.24,
+    "end": 81.3
+   }
+  ]
+ },
+ {
+  "text": "Cuatro, cuatro, para ti",
+  "start": 81.3,
+  "end": 83.36,
+  "words": [
+   {
+    "w": "Cuatro,",
+    "start": 81.3,
+    "end": 82.22
+   },
+   {
+    "w": "cuatro,",
+    "start": 82.36,
+    "end": 82.52
+   },
+   {
+    "w": "para",
+    "start": 82.52,
+    "end": 82.82
+   },
+   {
+    "w": "ti",
+    "start": 82.82,
+    "end": 83.36
+   }
+  ]
+ },
+ {
+  "text": "Cuenta conmigo: uno, dos, tres",
+  "start": 83.36,
+  "end": 86.36,
+  "words": [
+   {
+    "w": "Cuenta",
+    "start": 83.36,
+    "end": 84.52
+   },
+   {
+    "w": "conmigo:",
+    "start": 84.52,
+    "end": 85.32
+   },
+   {
+    "w": "uno,",
+    "start": 85.32,
+    "end": 85.6
+   },
+   {
+    "w": "dos,",
+    "start": 85.6,
+    "end": 85.96
+   },
+   {
+    "w": "tres",
+    "start": 85.96,
+    "end": 86.36
+   }
+  ]
+ },
+ {
+  "text": "Cuenta conmigo otra vez",
+  "start": 86.58,
+  "end": 88.72,
+  "words": [
+   {
+    "w": "Cuenta",
+    "start": 86.58,
+    "end": 86.94
+   },
+   {
+    "w": "conmigo",
+    "start": 86.94,
+    "end": 87.56
+   },
+   {
+    "w": "otra",
+    "start": 87.56,
+    "end": 87.86
+   },
+   {
+    "w": "vez",
+    "start": 87.86,
+    "end": 88.72
+   }
+  ]
+ },
+ {
+  "text": "Cuenta conmigo: uno, dos, tres",
+  "start": 88.72,
+  "end": 91.3,
+  "words": [
+   {
+    "w": "Cuenta",
+    "start": 88.72,
+    "end": 89.4
+   },
+   {
+    "w": "conmigo:",
+    "start": 89.4,
+    "end": 90.24
+   },
+   {
+    "w": "uno,",
+    "start": 90.24,
+    "end": 90.5
+   },
+   {
+    "w": "dos,",
+    "start": 90.5,
+    "end": 90.86
+   },
+   {
+    "w": "tres",
+    "start": 90.86,
+    "end": 91.3
+   }
+  ]
+ },
+ {
+  "text": "¡Vamos a contar!",
+  "start": 91.58,
+  "end": 93.48,
+  "words": [
+   {
+    "w": "¡Vamos",
+    "start": 91.58,
+    "end": 91.98
+   },
+   {
+    "w": "a",
+    "start": 91.98,
+    "end": 92.44
+   },
+   {
+    "w": "contar!",
+    "start": 92.44,
+    "end": 93.48
+   }
+  ]
+ },
+ {
+  "text": "Cinco, cinco, cinco dedos",
+  "start": 96.12,
+  "end": 98.52,
+  "words": [
+   {
+    "w": "Cinco,",
+    "start": 96.12,
+    "end": 96.92
+   },
+   {
+    "w": "cinco,",
+    "start": 96.92,
+    "end": 97.2
+   },
+   {
+    "w": "cinco",
+    "start": 97.2,
+    "end": 97.56
+   },
+   {
+    "w": "dedos",
+    "start": 97.56,
+    "end": 98.52
+   }
+  ]
+ },
+ {
+  "text": "Cinco, cinco, mira aquí",
+  "start": 99.08,
+  "end": 100.54,
+  "words": [
+   {
+    "w": "Cinco,",
+    "start": 99.08,
+    "end": 99.32
+   },
+   {
+    "w": "cinco,",
+    "start": 99.32,
+    "end": 99.68
+   },
+   {
+    "w": "mira",
+    "start": 99.68,
+    "end": 99.92
+   },
+   {
+    "w": "aquí",
+    "start": 99.92,
+    "end": 100.54
+   }
+  ]
+ },
+ {
+  "text": "Cinco, cinco, cinco dedos",
+  "start": 100.54,
+  "end": 103.32,
+  "words": [
+   {
+    "w": "Cinco,",
+    "start": 100.54,
+    "end": 101.76
+   },
+   {
+    "w": "cinco,",
+    "start": 101.76,
+    "end": 102.1
+   },
+   {
+    "w": "cinco",
+    "start": 102.1,
+    "end": 102.44
+   },
+   {
+    "w": "dedos",
+    "start": 102.44,
+    "end": 103.32
+   }
+  ]
+ },
+ {
+  "text": "Cinco, cinco, para ti",
+  "start": 103.82,
+  "end": 105.8,
+  "words": [
+   {
+    "w": "Cinco,",
+    "start": 103.82,
+    "end": 104.28
+   },
+   {
+    "w": "cinco,",
+    "start": 104.28,
+    "end": 104.52
+   },
+   {
+    "w": "para",
+    "start": 104.52,
+    "end": 104.92
+   },
+   {
+    "w": "ti",
+    "start": 104.92,
+    "end": 105.8
+   }
+  ]
+ },
+ {
+  "text": "Cuenta conmigo: uno, dos, tres",
+  "start": 105.8,
+  "end": 108.36,
+  "words": [
+   {
+    "w": "Cuenta",
+    "start": 105.8,
+    "end": 106.54
+   },
+   {
+    "w": "conmigo:",
+    "start": 106.54,
+    "end": 107.32
+   },
+   {
+    "w": "uno,",
+    "start": 107.32,
+    "end": 107.64
+   },
+   {
+    "w": "dos,",
+    "start": 107.64,
+    "end": 107.98
+   },
+   {
+    "w": "tres",
+    "start": 107.98,
+    "end": 108.36
+   }
+  ]
+ },
+ {
+  "text": "Cuenta conmigo otra vez",
+  "start": 108.8,
+  "end": 110.64,
+  "words": [
+   {
+    "w": "Cuenta",
+    "start": 108.8,
+    "end": 108.98
+   },
+   {
+    "w": "conmigo",
+    "start": 108.98,
+    "end": 109.58
+   },
+   {
+    "w": "otra",
+    "start": 109.58,
+    "end": 109.9
+   },
+   {
+    "w": "vez",
+    "start": 109.9,
+    "end": 110.64
+   }
+  ]
+ },
+ {
+  "text": "Cuenta conmigo: uno, dos, tres",
+  "start": 110.64,
+  "end": 113.2,
+  "words": [
+   {
+    "w": "Cuenta",
+    "start": 110.64,
+    "end": 111.44
+   },
+   {
+    "w": "conmigo:",
+    "start": 111.44,
+    "end": 112.22
+   },
+   {
+    "w": "uno,",
+    "start": 112.22,
+    "end": 112.58
+   },
+   {
+    "w": "dos,",
+    "start": 112.6,
+    "end": 112.88
+   },
+   {
+    "w": "tres",
+    "start": 112.92,
+    "end": 113.2
+   }
+  ]
+ },
+ {
+  "text": "¡Vamos a contar!",
+  "start": 113.48,
+  "end": 114.92,
+  "words": [
+   {
+    "w": "¡Vamos",
+    "start": 113.48,
+    "end": 114.06
+   },
+   {
+    "w": "a",
+    "start": 114.06,
+    "end": 114.46
+   },
+   {
+    "w": "contar!",
+    "start": 114.46,
+    "end": 114.92
+   }
+  ]
+ }
+]

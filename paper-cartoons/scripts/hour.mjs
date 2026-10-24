@@ -1,7 +1,8 @@
-// Join finished stories into one long video with YouTube chapters.
+// Join finished stories into one long video, plus a YouTube description with chapters.
 //   npm run hour -- <id> <id> <id> … [--name bedtime-hour] [--title "Bedtime Stories for Kids"]
 //   npm run hour -- --all
 // Renders any story that has no out/<id>.mp4 yet, then joins without re-encoding.
+// Chapters go in out/<name>.youtube.txt: paste it into the video description.
 import { execFileSync } from "node:child_process";
 import { existsSync, writeFileSync } from "node:fs";
 import path from "node:path";
@@ -42,13 +43,9 @@ const chapters = parts.map((p) => {
 
 const list = path.join(OUT, `${name}.concat.txt`);
 writeFileSync(list, parts.map((p) => `file '${p.file.replace(/'/g, "'\\''")}'`).join("\n") + "\n");
-const meta = path.join(OUT, `${name}.chapters.txt`);
-writeFileSync(
-  meta,
-  [";FFMETADATA1", `title=${title}`, ...chapters.flatMap((c) => ["[CHAPTER]", "TIMEBASE=1/1000", `START=${Math.round(c.start * 1000)}`, `END=${Math.round(c.end * 1000)}`, `title=${c.title}`])].join("\n") + "\n",
-);
 const output = path.join(OUT, `${name}.mp4`);
-ff("ffmpeg", ["-y", "-v", "error", "-f", "concat", "-safe", "0", "-i", list, "-i", meta, "-map", "0", "-map_metadata", "1", "-map_chapters", "1", "-c", "copy", "-movflags", "+faststart", output]);
+// YouTube reads chapters from the description (written below), not from the file.
+ff("ffmpeg", ["-y", "-v", "error", "-f", "concat", "-safe", "0", "-i", list, "-c", "copy", "-metadata", `title=${title}`, "-movflags", "+faststart", output]);
 
 const description = [
   title,

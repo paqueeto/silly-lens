@@ -42,7 +42,7 @@ render.
 | `npm run music -- <id>` | Soundtrack + sound effects |
 | `npm run render -- <id> [--draft]` | `out/<id>.mp4` (draft = 540p, fast) |
 | `npm run make -- <id> [--draft]` | narrate → music → render |
-| `npm run hour -- <id> <id> … --name x --title "…"` | Joins episodes into one video with chapters |
+| `npm run hour -- <id> <id> … --name x --title "…"` | Joins episodes into one video + a YouTube description with chapters |
 
 ## Narration keys
 

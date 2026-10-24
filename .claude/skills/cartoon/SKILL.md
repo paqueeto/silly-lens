@@ -132,7 +132,7 @@ episode matches.
 npm run hour -- <id> <id> <id> --name bedtime-hour-1 --title "Bedtime Stories with Olive"
 ```
 
-Renders anything missing, joins without re-encoding, embeds chapters, and writes
+Renders anything missing, joins without re-encoding, and writes
 `out/<name>.youtube.txt` with the chapter list for the description.
 
 ## 8. Changes

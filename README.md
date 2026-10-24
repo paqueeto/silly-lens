@@ -1,4 +1,4 @@
-# Paper Cartoons
+# Cartoon Master
 
 Felt-and-paper kids' cartoons, made by Claude Code from one idea to a finished MP4.
 Scenes are React/SVG rendered by [Remotion](https://www.remotion.dev); the music and
@@ -11,7 +11,7 @@ Demo story: **Olive and the Lantern Stars** (`src/stories/olive-and-the-lantern-
 Needs Node 20+.
 
 ```bash
-cd paper-cartoons
+cd cartoon-master
 npm install
 ```
 

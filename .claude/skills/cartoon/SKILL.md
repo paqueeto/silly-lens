@@ -214,3 +214,19 @@ lower-third instead of karaoke). In scenes:
   `Pot` (squeeze, roots, crack), `MossPole`, `Crown`, `Drop`. Preview: composition `plants`.
 - When the transcription is unsure (sung outros, ad-libs), leave those lines out of
   the lyrics rather than guess, and tell the user.
+
+### Sketchbook / crayon style
+
+Worked example: `src/stories/monstera-sketch/`. Kit: `kit/sketch.tsx`.
+
+- `Sketchbook` (one page or an open spread with a spiral spine; `merge` removes the
+  spine), `SketchDefs` (crayon and pencil filters with three "boil" variants, so lines
+  re-draw slightly every frame), `Line` (draws itself on), `Scribble` (crayon
+  colouring inside a shape), `SketchLeaf`, `SketchPlant`, `SketchPot` (crack, gold
+  mend), `Person` (stand, stretch, reach, dance, and a curled-up key drawing),
+  `ReachingHand`, `Handwriting`, `Tangle`, `SketchSun`; `"lyricsStyle": "journal"`.
+- Meaning first: when lyrics work on two levels, show both. The spread is the device:
+  one story per page, the same beats, then merge the pages when the two meet.
+- Colour carries meaning: pencil while it's grey, crayon when life comes back.
+- Animate at 12 fps; hand-drawn poses that blend badly (curling up) get their own key
+  drawing instead of joint blending.

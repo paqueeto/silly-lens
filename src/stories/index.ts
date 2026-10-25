@@ -21,6 +21,8 @@ import { scenes as numerosFeltScenes } from "./los-numeros-felt/scenes.tsx";
 import monsteraSpec from "./monstera/song.json";
 import monsteraLyrics from "./monstera/lyrics.json";
 import { scenes as monsteraScenes } from "./monstera/scenes.tsx";
+import monsteraSketchSpec from "./monstera-sketch/song.json";
+import { scenes as monsteraSketchScenes } from "./monstera-sketch/scenes.tsx";
 
 export const SONGS: { spec: SongSpec; lyrics: LineTime[]; scenes: Record<string, React.FC> }[] = [
   { spec: numerosSpec as SongSpec, lyrics: numerosLyrics as LineTime[], scenes: numerosScenes },
@@ -28,4 +30,6 @@ export const SONGS: { spec: SongSpec; lyrics: LineTime[]; scenes: Record<string,
   { spec: numerosFeltSpec as SongSpec, lyrics: numerosLyrics as LineTime[], scenes: numerosFeltScenes },
   // Stop motion at 12 fps, heavy felt, PG music video.
   { spec: monsteraSpec as SongSpec, lyrics: monsteraLyrics as LineTime[], scenes: monsteraScenes },
+  // Same song, sketchbook and crayon: the plant on one page, a person on the other.
+  { spec: monsteraSketchSpec as SongSpec, lyrics: monsteraLyrics as LineTime[], scenes: monsteraSketchScenes },
 ];

@@ -42,25 +42,11 @@ type LeafProps = {
 
 const SLITS = 5;
 
-/** One monstera leaf: heart-shaped, with slits and holes cut by a mask, then felted. */
-export const MonsteraLeaf: React.FC<LeafProps> = ({
-  x,
-  y,
-  size: L,
-  angle = 0,
-  unfurl = 1,
-  split = 1,
-  holes = 1,
-  wilt = 0,
-  color = "#2f8f5b",
-  seed = 1,
-}) => {
-  if (unfurl <= 0.01) return null;
-  const id = `leaf-${seed}-${Math.round(x)}-${Math.round(y)}`;
-  const c = wilt > 0 ? mixColor(color, "#8a8f5a", wilt * 0.7) : color;
-  const droop = wilt * 55 * Math.sign(angle || 1);
-  const open = 0.12 + 0.88 * unfurl;
-  // Leaf outline in leaf space: base at (0,0), tip at (0,-L).
+/**
+ * Monstera leaf geometry in leaf space (base at 0,0, tip at 0,-L): the outline, the
+ * slit wedges and the holes. Shared by the felt leaf and the sketchbook leaf.
+ */
+export function monsteraShape(L: number, split: number, holes: number, seed: number) {
   const outline = `M 0 0 C ${-0.22 * L} ${0.14 * L} ${-0.52 * L} ${0.06 * L} ${-0.54 * L} ${-0.34 * L}
     C ${-0.55 * L} ${-0.76 * L} ${-0.22 * L} ${-1.0 * L} 0 ${-1.05 * L}
     C ${0.22 * L} ${-1.0 * L} ${0.55 * L} ${-0.76 * L} ${0.54 * L} ${-0.34 * L}
@@ -89,6 +75,28 @@ export const MonsteraLeaf: React.FC<LeafProps> = ({
       }
     }
   }
+  return { outline, slits, holes: holesList, halfWidth };
+}
+
+/** One monstera leaf: heart-shaped, with slits and holes cut by a mask, then felted. */
+export const MonsteraLeaf: React.FC<LeafProps> = ({
+  x,
+  y,
+  size: L,
+  angle = 0,
+  unfurl = 1,
+  split = 1,
+  holes = 1,
+  wilt = 0,
+  color = "#2f8f5b",
+  seed = 1,
+}) => {
+  if (unfurl <= 0.01) return null;
+  const id = `leaf-${seed}-${Math.round(x)}-${Math.round(y)}`;
+  const c = wilt > 0 ? mixColor(color, "#8a8f5a", wilt * 0.7) : color;
+  const droop = wilt * 55 * Math.sign(angle || 1);
+  const open = 0.12 + 0.88 * unfurl;
+  const { outline, slits, holes: holesList, halfWidth } = monsteraShape(L, split, holes, seed);
   const curl = wilt * 0.35;
   return (
     <g transform={`translate(${x} ${y}) rotate(${angle + droop}) scale(${open * (1 - curl)} ${1 - wilt * 0.12})`}>

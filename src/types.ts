@@ -89,8 +89,11 @@ export type SongSpec = {
   fps?: number;
   /** Stop-motion feel: the whole frame bumps a hair and the exposure flickers, every frame. */
   stopMotion?: boolean;
-  /** "karaoke" (default): sing-along bar. "words": a lower-third line that adds each word as sung. "none". */
-  lyricsStyle?: "karaoke" | "words" | "none";
+  /**
+   * "karaoke" (default): sing-along bar. "words": a lower-third line that adds each word as sung.
+   * "journal": handwritten at the foot of a sketchbook page, word by word. "none".
+   */
+  lyricsStyle?: "karaoke" | "words" | "journal" | "none";
   /**
    * How `npm run soundtrack` builds `audio` from the original song: play it up to `cut`
    * seconds, then repeat the instrumental `loop` [start, end] to fill `duration`, fading out.

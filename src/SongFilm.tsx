@@ -3,6 +3,7 @@ import { AbsoluteFill, Html5Audio, Sequence, staticFile, useCurrentFrame, useVid
 import "./assets.ts";
 import { FeltDefs, MaterialContext, rng } from "./kit/felt.tsx";
 import { Karaoke, LyricWords } from "./kit/learning.tsx";
+import { JournalLyrics } from "./kit/sketch.tsx";
 import { MissingScene, PaperWipe, WordPops } from "./kit/overlays.tsx";
 import { SceneContext } from "./kit/scene.tsx";
 import { findWordTimes } from "./timing.ts";
@@ -87,7 +88,9 @@ export const SongFilm: React.FC<SongProps> = ({ spec, lyrics, scenes }) => {
             ) : null,
           )}
           {spec.stopMotion ? <Flicker /> : null}
-          {spec.karaoke === false || spec.lyricsStyle === "none" ? null : spec.lyricsStyle === "words" ? (
+          {spec.karaoke === false || spec.lyricsStyle === "none" ? null : spec.lyricsStyle === "journal" ? (
+            <JournalLyrics lines={lyrics} t={frame / fps} />
+          ) : spec.lyricsStyle === "words" ? (
             <LyricWords lines={lyrics} t={frame / fps} />
           ) : (
             <Karaoke lines={lyrics} t={frame / fps} />

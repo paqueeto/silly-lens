@@ -197,3 +197,20 @@ instead of narration. Worked example: `src/stories/los-numeros/`.
 7. Register in `SONGS` in `src/stories/index.ts`; then `npm run still -- <id> --scenes`,
    `npm run render -- <id> --draft`, final render. Verify the audio offset against
    the soundtrack is 0 ms.
+
+### Stop-motion music videos (grown-up, PG)
+
+Worked example: `src/stories/monstera/`. In `song.json`: `"fps": 12` (animate on
+twos; the render delivers 24 fps), `"stopMotion": true` (camera bump + exposure
+flicker on every frame), `"material": "felt"`, `"lyricsStyle": "words"` (a calm
+lower-third instead of karaoke). In scenes:
+
+- Wrap every separately placed piece in `<Cutout seed>` so it shifts a hair per frame.
+- Move things in steps that land on beats ("one nudge per beat"), not smooth glides.
+- Minimal: one hero on a tabletop set (a felt wall and table, spotlight, vignette),
+  one idea per section, and a bold colour change on the big moments.
+- Big cut-out words (`CutoutWord`) go on the opposite side from the hero, never behind it.
+- Plant kit (`kit/plant.tsx`): `MonsteraLeaf` (unfurl, split, holes, wilt), `Monstera`,
+  `Pot` (squeeze, roots, crack), `MossPole`, `Crown`, `Drop`. Preview: composition `plants`.
+- When the transcription is unsure (sung outros, ad-libs), leave those lines out of
+  the lyrics rather than guess, and tell the user.

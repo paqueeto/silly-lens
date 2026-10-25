@@ -1,0 +1,23 @@
+{
+  "id": "monstera",
+  "title": "The Monstera Plant",
+  "mood": "playful",
+  "material": "felt",
+  "fps": 12,
+  "stopMotion": true,
+  "lyricsStyle": "words",
+  "audio": "monstera/song.mp3",
+  "duration": 116,
+  "beats": [{ "from": 0, "first": 0.3644, "period": 0.39478 }],
+  "sections": [
+    { "id": "intro", "start": 0 },
+    { "id": "too-tight", "start": 13.39 },
+    { "id": "let-you-go", "start": 24.2 },
+    { "id": "chorus-1", "start": 38.6 },
+    { "id": "repot", "start": 52.2, "enter": "wipe" },
+    { "id": "chorus-2", "start": 68.15 },
+    { "id": "bridge", "start": 84.3 },
+    { "id": "jungle", "start": 98.3 },
+    { "id": "title", "start": 112.4 }
+  ]
+}

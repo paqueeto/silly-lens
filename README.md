@@ -40,6 +40,8 @@ Give Claude a song and it transcribes the lyrics with word timings, builds a sto
 from them and animates every number, word and chorus on the beat, with sing-along
 karaoke. Example: `src/stories/los-numeros/` (a 3-minute counting video for an
 original 2-minute song, plus a review section over the song's own intro loop).
+`src/stories/monstera/` is a PG stop-motion music video (12 fps, felt cut-outs, a
+procedural monstera that wilts, splits and grows on the beat).
 `src/stories/los-numeros-felt/` is the same song in heavy felt with Tito the monkey,
 ending with the song. Commands: `npm run lyrics`, `npm run soundtrack`; see the skill,
 section 9.

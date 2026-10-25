@@ -3,6 +3,7 @@ import { Composition, staticFile } from "remotion";
 import { Film, type FilmProps } from "./Film.tsx";
 import { KitGallery } from "./KitGallery.tsx";
 import { WORLD_SECONDS, WorldGallery } from "./WorldGallery.tsx";
+import { PlantGallery } from "./PlantGallery.tsx";
 import { WORLD_NAMES } from "./kit/worlds.tsx";
 import { SONGS, STORIES } from "./stories/index.ts";
 import { SongFilm, songTiming } from "./SongFilm.tsx";
@@ -82,14 +83,15 @@ export const Root: React.FC = () => (
         key={spec.id}
         id={spec.id}
         component={Component}
-        fps={FPS}
+        fps={spec.fps ?? FPS}
         width={1920}
         height={1080}
-        durationInFrames={Math.round(spec.duration * FPS)}
+        durationInFrames={Math.round(spec.duration * (spec.fps ?? FPS))}
         // Serializable summary so the still and render scripts treat songs like stories.
         defaultProps={{ timing: songTiming(spec, lyrics), hasMusic: true, hasSfx: true }}
       />
     ))}
+    <Composition id="plants" component={PlantGallery} fps={FPS} width={1920} height={1080} durationInFrames={FPS * 4} />
     <Composition id="kit" component={KitGallery} fps={FPS} width={1920} height={1080} durationInFrames={FPS * 8} />
     <Composition
       id="worlds"

@@ -28,7 +28,8 @@ export async function renderStory(id, { draft = false } = {}) {
     codec: "h264",
     outputLocation: raw,
     // Felt grain is expensive to encode; 20 stays clean after YouTube's re-encode.
-    crf: draft ? 28 : 20,
+    // Stop-motion films (< 24 fps) are re-encoded to 24 fps below, so keep this pass near-lossless.
+    crf: composition.fps < 24 ? 12 : draft ? 28 : 20,
     x264Preset: draft ? "veryfast" : "medium",
     colorSpace: "bt709",
     pixelFormat: "yuv420p",
@@ -50,10 +51,16 @@ export async function renderStory(id, { draft = false } = {}) {
       }
     },
   });
+  // Stop motion is animated at 12 fps; deliver 24 fps (each drawing held for two frames),
+  // which every platform accepts.
+  const video =
+    composition.fps < 24
+      ? ["-r", "24", "-c:v", "libx264", "-crf", draft ? "28" : "18", "-preset", "medium", "-pix_fmt", "yuv420p", "-color_primaries", "bt709", "-color_trc", "bt709", "-colorspace", "bt709"]
+      : ["-c:v", "copy"];
   // Even loudness for every episode (-16 LUFS, a calm level that YouTube won't need to boost).
   execFileSync(
     "npx",
-    ["remotion", "ffmpeg", "-y", "-v", "error", "-i", raw, "-c:v", "copy", "-af", "loudnorm=I=-16:TP=-1.5:LRA=11", "-ar", "48000", "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", output],
+    ["remotion", "ffmpeg", "-y", "-v", "error", "-i", raw, ...video, "-af", "loudnorm=I=-16:TP=-1.5:LRA=11", "-ar", "48000", "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", output],
     { stdio: "inherit" },
   );
   rmSync(raw);

@@ -1,8 +1,8 @@
 import React, { createContext, useContext } from "react";
 import { AbsoluteFill, Html5Audio, Sequence, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import "./assets.ts";
-import { FeltDefs, MaterialContext } from "./kit/felt.tsx";
-import { Karaoke } from "./kit/learning.tsx";
+import { FeltDefs, MaterialContext, rng } from "./kit/felt.tsx";
+import { Karaoke, LyricWords } from "./kit/learning.tsx";
 import { MissingScene, PaperWipe, WordPops } from "./kit/overlays.tsx";
 import { SceneContext } from "./kit/scene.tsx";
 import { findWordTimes } from "./timing.ts";
@@ -61,33 +61,58 @@ export const SongFilm: React.FC<SongProps> = ({ spec, lyrics, scenes }) => {
       <SongContext.Provider value={spec}>
         <MaterialContext.Provider value={spec.material ?? "classic"}>
           <FeltDefs />
-          {timeline.map((st, i) => {
-            const section = spec.sections[i];
-            const Scene = scenes[st.id];
-            const from = f(st.start);
-            const duration = f(st.end) - from;
-            const popTimes = findWordTimes(st, section.pop ?? []);
-            const pops = (section.pop ?? [])
-              .map((word, k) => ({ word, frame: popTimes[k] ? f(popTimes[k]!.start) - from : -1 }))
-              .filter((p) => p.frame >= 0);
-            return (
-              <Sequence key={st.id} from={from} durationInFrames={duration + 1} name={st.id}>
-                <SceneContext.Provider value={{ scene: st, duration }}>
-                  {Scene ? <Scene /> : <MissingScene id={st.id} lines={st.lines.map((l) => l.text)} />}
-                  {pops.length ? <WordPops words={pops} duration={duration} seed={i + 1} /> : null}
-                </SceneContext.Provider>
-              </Sequence>
-            );
-          })}
+          <CameraBump on={!!spec.stopMotion}>
+            {timeline.map((st, i) => {
+              const section = spec.sections[i];
+              const Scene = scenes[st.id];
+              const from = f(st.start);
+              const duration = f(st.end) - from;
+              const popTimes = findWordTimes(st, section.pop ?? []);
+              const pops = (section.pop ?? [])
+                .map((word, k) => ({ word, frame: popTimes[k] ? f(popTimes[k]!.start) - from : -1 }))
+                .filter((p) => p.frame >= 0);
+              return (
+                <Sequence key={st.id} from={from} durationInFrames={duration + 1} name={st.id}>
+                  <SceneContext.Provider value={{ scene: st, duration }}>
+                    {Scene ? <Scene /> : <MissingScene id={st.id} lines={st.lines.map((l) => l.text)} />}
+                    {pops.length ? <WordPops words={pops} duration={duration} seed={i + 1} /> : null}
+                  </SceneContext.Provider>
+                </Sequence>
+              );
+            })}
+          </CameraBump>
           {spec.sections.map((s, i) =>
             s.enter === "wipe" && i > 0 ? (
               <PaperWipe key={s.id} at={f(s.start)} seed={i + 2} color={i % 2 ? "#f3dcc0" : "#f4e6c8"} />
             ) : null,
           )}
-          {spec.karaoke === false ? null : <Karaoke lines={lyrics} t={frame / fps} />}
+          {spec.stopMotion ? <Flicker /> : null}
+          {spec.karaoke === false || spec.lyricsStyle === "none" ? null : spec.lyricsStyle === "words" ? (
+            <LyricWords lines={lyrics} t={frame / fps} />
+          ) : (
+            <Karaoke lines={lyrics} t={frame / fps} />
+          )}
           <Html5Audio src={staticFile(spec.audio)} />
         </MaterialContext.Provider>
       </SongContext.Provider>
     </AbsoluteFill>
   );
+};
+
+/** Stop-motion exposure flicker: each frame a touch brighter or darker. */
+const Flicker: React.FC = () => {
+  const frame = useCurrentFrame();
+  const r = rng(frame * 2654435761);
+  const v = (r() - 0.5) * 0.07;
+  return <AbsoluteFill style={{ background: v > 0 ? "#fff8e8" : "#000000", opacity: Math.abs(v), pointerEvents: "none" }} />;
+};
+
+/** Stop-motion camera: the whole set shifts a hair on every frame, like a nudged tripod. */
+export const CameraBump: React.FC<{ children: React.ReactNode; on: boolean }> = ({ children, on }) => {
+  const frame = useCurrentFrame();
+  if (!on) return <>{children}</>;
+  const r = rng(frame * 40503 + 7);
+  const x = (r() - 0.5) * 4;
+  const y = (r() - 0.5) * 4;
+  return <AbsoluteFill style={{ transform: `translate(${x.toFixed(2)}px, ${y.toFixed(2)}px) scale(1.006)` }}>{children}</AbsoluteFill>;
 };

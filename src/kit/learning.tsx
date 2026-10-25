@@ -288,3 +288,26 @@ export const Karaoke: React.FC<{ lines: KaraokeLine[]; t: number }> = ({ lines, 
     </div>
   );
 };
+
+/**
+ * Music-video lyrics: a lower-third line that adds each word the moment it is sung.
+ * Calmer and more grown-up than karaoke. `t` is the film time in seconds.
+ */
+export const LyricWords: React.FC<{ lines: KaraokeLine[]; t: number; color?: string }> = ({ lines, t, color = "#fffaf0" }) => {
+  const line = lines.find((l) => t >= l.start - 0.1 && t <= l.end + 0.9);
+  if (!line) return null;
+  const out = interpolate(t, [line.end + 0.6, line.end + 0.9], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  return (
+    <div style={{ position: "absolute", left: 90, bottom: 70, right: 90, opacity: out }}>
+      <div style={{ display: "inline-flex", flexWrap: "wrap", gap: "0 16px", padding: "10px 26px", background: "rgba(16, 14, 20, 0.55)", borderRadius: 10 }}>
+        {line.words.map((w, i) =>
+          t >= w.start ? (
+            <span key={i} style={{ fontFamily: FONT, fontWeight: 600, fontSize: 50, color, letterSpacing: 0.5 }}>
+              {w.w}
+            </span>
+          ) : null,
+        )}
+      </div>
+    </div>
+  );
+};

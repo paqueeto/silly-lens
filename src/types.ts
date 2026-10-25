@@ -85,6 +85,12 @@ export type SongSpec = {
   karaoke?: boolean;
   /** "felt" = heavy felt textures, chunky stitching and felt-panel skies. */
   material?: "classic" | "felt";
+  /** Frames per second to animate at. 12 = stop motion "on twos" (output is still 24 fps). */
+  fps?: number;
+  /** Stop-motion feel: the whole frame bumps a hair and the exposure flickers, every frame. */
+  stopMotion?: boolean;
+  /** "karaoke" (default): sing-along bar. "words": a lower-third line that adds each word as sung. "none". */
+  lyricsStyle?: "karaoke" | "words" | "none";
   /**
    * How `npm run soundtrack` builds `audio` from the original song: play it up to `cut`
    * seconds, then repeat the instrumental `loop` [start, end] to fill `duration`, fading out.
